@@ -1,0 +1,12 @@
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\bin\Debug\net6.0\PortailTE44.DAL.deps.json
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\bin\Debug\net6.0\PortailTE44.DAL.dll
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\bin\Debug\net6.0\PortailTE44.DAL.pdb
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.csproj.AssemblyReference.cache
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.AssemblyInfoInputs.cache
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.AssemblyInfo.cs
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.dll
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\refint\PortailTE44.DAL.dll
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\PortailTE44.DAL.pdb
+C:\Users\Nil\source\repos\PortailTE44\PortailTE44.DAL\obj\Debug\net6.0\ref\PortailTE44.DAL.dll

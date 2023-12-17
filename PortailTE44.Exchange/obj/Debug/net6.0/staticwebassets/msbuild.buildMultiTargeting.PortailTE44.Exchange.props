@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PortailTE44.Exchange.props" />
+</Project>
