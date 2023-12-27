@@ -1,3 +1,6 @@
+using app.Context;
+using Microsoft.EntityFrameworkCore;
+
 using FluentMigrator.Runner;
 using PortailTE44.Business.Extensions;
 using PortailTE44.DAL.Extensions;
@@ -21,6 +24,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("dbPortailTE44")));
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.ConfigureRepositories();
@@ -28,17 +35,20 @@ builder.Services.ConfigureRepositories();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(builder => builder
+.AllowAnyHeader()
+.AllowAnyMethod()
+.SetIsOriginAllowed((host) => true)
+.AllowCredentials());
 
 //Migration
 using var scope = app.Services.CreateScope();
