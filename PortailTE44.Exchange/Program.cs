@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using FluentMigrator.Runner;
 using PortailTE44.Business.Extensions;
+using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
@@ -31,6 +32,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.ConfigureRepositories();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 
 var app = builder.Build();
 
