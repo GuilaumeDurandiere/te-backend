@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Workflow;
+using PortailTE44.Common.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace PortailTE44.Exchange.Controllers
 {
@@ -31,10 +33,10 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> GetAll()
+        public async Task<IResult> GetAll(int size, int page)
         {
             IEnumerable<WorkflowItemResponseDto> result = await _workflowService.GetAll();
-            return Results.Ok(result);
+            return Results.Ok(await PaginatedList<WorkflowItemResponseDto>.CreateAsync(result.AsQueryable(), page, size));
         }
 
         [HttpPost()]
