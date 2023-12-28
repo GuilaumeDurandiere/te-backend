@@ -32,7 +32,11 @@ namespace PortailTE44.Business.Services
         public async Task<EtapeResponseDto> Update(int id, EtapeUpdatePayloadDto dto)
         {
             Etape? etape = await _repository.GetByIdAsync(id);
-            if (etape is null) throw new KeyNotFoundException("L'étape n'existe pas");
+            if (etape is null)
+            {
+                _logger.LogInformation($"Aucune étape trouvée avec l'id {id}");
+                throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
+            }
             etape.Libelle = dto.Libelle;
             etape.Description = dto.Description;
             etape.Statut = dto.Statut;
@@ -44,16 +48,28 @@ namespace PortailTE44.Business.Services
         public async Task<EtapeResponseDto> GetById(int id)
         {
             Etape? etape = await _repository.GetByIdAsync(id);
-            if (etape is null) throw new KeyNotFoundException("L'étape n'existe pas");
+            if (etape is null)
+            {
+                _logger.LogInformation($"Aucune étape trouvée avec l'id {id}");
+                throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
+            }
             return _mapper.Map<Etape, EtapeResponseDto>(etape);
         }
 
         public async Task Delete(int id)
         {
             Etape? etape = await _repository.GetByIdAsync(id);
-            if (etape is null) throw new KeyNotFoundException("L'étape n'existe pas");
+            if (etape is null)
+            {
+                _logger.LogInformation($"Aucune étape trouvée avec l'id {id}");
+                throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
+            }
             IEnumerable<Etape> workflowEtapes = await _etapeRepository.GetByWorkflowsId(etape.WorkflowId);
-            if (workflowEtapes.Count() == 1) throw new ArgumentException("Un workflow doit posséder au moins une étape");
+            if (workflowEtapes.Count() == 1)
+            {
+                _logger.LogInformation("Impossible de supprimer l'étape car un workflow doit posséder au moins une étape");
+                throw new ArgumentException("Impossible de supprimer l'étape car un workflow doit posséder au moins une étape");
+            }
             _repository.Delete(etape);
             await _repository.SaveAsync();
         }

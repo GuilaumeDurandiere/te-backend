@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousEtapes;
@@ -30,14 +29,22 @@ namespace PortailTE44.Business.Services
         public async Task<SousEtapeResponseDto> Get(int id) 
         {
             SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if(sousEtape == null ) throw new Exception($"Aucune étape avec l'id {id} n'a été retrouvé");
+            if (sousEtape == null)
+            {
+                _logger.LogInformation($"Aucune étape avec l'id {id} n'a été retrouvé");
+                throw new KeyNotFoundException($"Aucune étape avec l'id {id} n'a été retrouvé");
+            }
             return _mapper.Map <SousEtape, SousEtapeResponseDto>(sousEtape);
         }
 
         public async Task<SousEtapeResponseDto> Update(int id, SousEtapeUpdatePayloadDto dto)
         {
             SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if (sousEtape == null) throw new Exception($"Il n'existe aucune sous étape avec l'id {dto.Id}");
+            if (sousEtape == null)
+            {
+                _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {dto.Id}");
+                throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {dto.Id}");
+            }
             sousEtape.Description = dto.Description;
             sousEtape.Libelle = dto.Libelle;
             _repository.Update(sousEtape);
@@ -48,7 +55,11 @@ namespace PortailTE44.Business.Services
         public async Task Delete (int id)
         {
             SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if (sousEtape == null) throw new Exception($"Il n'existe aucune sous étape avec l'id {id}");
+            if (sousEtape == null)
+            {
+                _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {id}");
+                throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {id}");
+            }
             _repository.Delete(sousEtape);
         }
     }
