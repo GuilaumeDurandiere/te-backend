@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PortailTE44.Business.Services;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Etape;
-using PortailTE44.Common.Dtos.Workflow;
 
 namespace PortailTE44.Exchange.Controllers
 {
@@ -11,42 +9,55 @@ namespace PortailTE44.Exchange.Controllers
     public class EtapeController
     {
         private readonly IEtapeService _etapeService;
+        private readonly ILogger<EtapeController> _logger;
 
         public EtapeController(
-            IEtapeService etapeService
+            IEtapeService etapeService,
+            ILogger<EtapeController> logger
         )
         {
             _etapeService = etapeService;
+            _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<EtapeResponseDto> GetById(int id)
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> GetById(int id)
         {
-            return await _etapeService.GetById(id);
+            EtapeResponseDto responseDto = await _etapeService.GetById(id);
+            return Results.Ok(responseDto);
         }
 
-        [HttpPost("Create")]
-        public async Task<EtapeResponseDto> Create([FromBody] EtapeCreatePayloadDto dto)
+        [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IResult> Create([FromBody] EtapeCreatePayloadDto dto)
         {
-            return await _etapeService.Create(dto);
+            EtapeResponseDto responseDto = await _etapeService.Create(dto);
+            return Results.Created("", responseDto);
         }
 
-        [HttpPut("Update")]
-        public async Task<EtapeResponseDto> Update([FromBody] EtapeUpdatePayloadDto dto)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> Update(int id, [FromBody] EtapeUpdatePayloadDto dto)
         {
-            return await _etapeService.Update(dto);
+            EtapeResponseDto responseDto = await _etapeService.Update(id, dto);
+            return Results.Ok(responseDto);
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete([FromRoute] int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IResult> Delete([FromRoute] int id)
         {
             await _etapeService.Delete(id);
+            return Results.NoContent();
         }
 
         [HttpGet("GetByWorkflow/{id}")]
-        public async Task<IEnumerable<EtapeResponseDto>> GetByWorkflow([FromRoute] int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> GetByWorkflow([FromRoute] int id)
         {
-            return await _etapeService.GetByWorkflowId(id);
+            IEnumerable<EtapeResponseDto> responseDtos = await _etapeService.GetByWorkflowId(id);
+            return Results.Ok(responseDtos);
         }
     }
 }

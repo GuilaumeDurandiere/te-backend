@@ -21,28 +21,37 @@ namespace PortailTE44.Exchange.Controllers
             _logger = logger;
         }
 
-        [HttpPost("Create")]
-        public async Task<SousEtapeResponseDto> Create([FromBody] SousEtapeCreatePayloadDto dto)
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> Create([FromBody] SousEtapeCreatePayloadDto dto)
         {
-            return await _sousEtapeService.Create(dto);
+            SousEtapeResponseDto responseDto = await _sousEtapeService.Create(dto);
+            return Results.Ok(responseDto);
         }
 
         [HttpGet("{id}")]
-        public async Task<SousEtapeResponseDto> Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> Get(int id)
         {
-            return await _sousEtapeService.Get(id);
+            SousEtapeResponseDto sousEtapeResponseDto = await _sousEtapeService.Get(id);
+            return Results.Ok(sousEtapeResponseDto);
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IResult> Delete(int id)
         {
-            _sousEtapeService.Delete(id);
+            await _sousEtapeService.Delete(id);
+
+            return Results.NoContent();
         }
 
-        [HttpPut("Update")]
-        public async Task<SousEtapeResponseDto> Update([FromBody]SousEtapeUpdatePayloadDto dto)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IResult> Update(int id,  [FromBody]SousEtapeUpdatePayloadDto dto)
         {
-            return await _sousEtapeService.Update(dto);
+            SousEtapeResponseDto responseDto = await _sousEtapeService.Update(id, dto);
+            return Results.Ok(responseDto);
         }
     }
 }
