@@ -36,7 +36,7 @@ namespace PortailTE44.Exchange.Controllers
         public async Task<IResult> GetAll(int size, int page)
         {
             IEnumerable<WorkflowItemResponseDto> result = await _workflowService.GetAll();
-            return Results.Ok(await PaginatedList<WorkflowItemResponseDto>.CreateAsync(result.AsQueryable(), page, size));
+            return Results.Ok(PaginatedList<WorkflowItemResponseDto>.Create(result.AsQueryable(), page, size));
         }
 
         [HttpPost()]
