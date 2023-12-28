@@ -8,6 +8,7 @@ namespace PortailTE44.DAL.Repositories
     public class EtapeRepository : GenericRepository<Etape>, IEtapeRepository
     {
         ILogger<EtapeRepository> _logger;
+
         public EtapeRepository(
             PortailTE44Context context,
             ILogger<EtapeRepository> logger

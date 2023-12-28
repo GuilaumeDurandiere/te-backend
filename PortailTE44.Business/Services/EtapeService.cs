@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Etape;
 using PortailTE44.DAL.Entities;
@@ -8,13 +9,16 @@ namespace PortailTE44.Business.Services
 {
     public class EtapeService : GenericService<Etape>, IEtapeService
     {
+        ILogger<EtapeService> _logger;
         protected readonly IEtapeRepository _etapeRepository;
         public EtapeService(
             IEtapeRepository etapeRepository,
-            IMapper mapper
+            IMapper mapper,
+            ILogger<EtapeService> logger
         ) : base(etapeRepository, mapper)
         {
             _etapeRepository = etapeRepository;
+            _logger = logger;
         }
 
         public async Task<EtapeResponseDto> Create(EtapeCreatePayloadDto dto)
@@ -25,9 +29,9 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<Etape, EtapeResponseDto>(etape);
         }
 
-        public async Task<EtapeResponseDto> Update(EtapeUpdatePayloadDto dto)
+        public async Task<EtapeResponseDto> Update(int id, EtapeUpdatePayloadDto dto)
         {
-            Etape? etape = await _repository.GetByIdAsync(dto.Id);
+            Etape? etape = await _repository.GetByIdAsync(id);
             if (etape is null) throw new KeyNotFoundException("L'étape n'existe pas");
             etape.Libelle = dto.Libelle;
             etape.Description = dto.Description;

@@ -7,8 +7,8 @@ namespace PortailTE44.DAL.Repositories
 {
     public class WorkflowRepository : GenericRepository<Workflow>, IWorkflowRepository
     {
-
         ILogger<WorkflowRepository> _logger;
+
         public WorkflowRepository(
             PortailTE44Context context,
             ILogger<WorkflowRepository> logger

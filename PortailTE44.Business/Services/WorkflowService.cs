@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Workflow;
 using PortailTE44.DAL.Entities;
@@ -8,10 +9,14 @@ namespace PortailTE44.Business.Services
 {
     public class WorkflowService : GenericService<Workflow>, IWorkflowService
     {
+        ILogger<WorkflowService> _logger;
         public WorkflowService(
             IWorkflowRepository repository,
-            IMapper mapper
-        ) : base(repository, mapper) { }
+            IMapper mapper,
+            ILogger<WorkflowService> logger
+        ) : base(repository, mapper) {
+            _logger = logger;
+        }
 
         public async Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto)
         {
@@ -36,9 +41,9 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(workflows);
         }
 
-        public async Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto)
+        public async Task<WorkflowResponseDto> Update(int id, WorkflowUpdatePayloadDto dto)
         {
-            Workflow? workflow = await _repository.GetByIdAsync(dto.Id);
+            Workflow? workflow = await _repository.GetByIdAsync(id);
             if (workflow is null) throw new KeyNotFoundException("Le workflow n'existe pas");
             workflow.Libelle = dto.Libelle;
             workflow.Actif = dto.Actif;
