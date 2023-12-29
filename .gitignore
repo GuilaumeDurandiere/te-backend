@@ -491,3 +491,5 @@ PortailTE44.Common/bin/
 PortailTE44.DAL/bin/
 
 PortailTE44.Exchange/bin/
+
+appsettings.user.*.json

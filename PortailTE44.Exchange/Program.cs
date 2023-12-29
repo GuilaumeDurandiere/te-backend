@@ -1,6 +1,5 @@
 using app.Context;
 using Microsoft.EntityFrameworkCore;
-
 using FluentMigrator.Runner;
 using PortailTE44.Business.Extensions;
 using PortailTE44.DAL.Configurations;
@@ -19,6 +18,10 @@ builder.Logging.AddSerilog(logger);
 // Add services to the container.
 
 ConfigurationManager configuration = builder.Configuration;
+configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.user.{Environment.UserName}.json", true, true)
+    .AddEnvironmentVariables();
+
 builder.Services.ConfigureDatabase(configuration);
 builder.Services.ConfigureFluentMigrator(configuration);
 builder.Services.AddControllers();
