@@ -46,11 +46,11 @@ namespace PortailTE44.Exchange.Controllers
             return Results.NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> Update(int id,  [FromBody]SousEtapeUpdatePayloadDto dto)
+        public async Task<IResult> Update([FromBody]SousEtapeUpdatePayloadDto dto)
         {
-            SousEtapeResponseDto responseDto = await _sousEtapeService.Update(id, dto);
+            SousEtapeResponseDto responseDto = await _sousEtapeService.Update(dto);
             return Results.Ok(responseDto);
         }
     }

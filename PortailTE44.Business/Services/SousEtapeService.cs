@@ -37,9 +37,9 @@ namespace PortailTE44.Business.Services
             return _mapper.Map <SousEtape, SousEtapeResponseDto>(sousEtape);
         }
 
-        public async Task<SousEtapeResponseDto> Update(int id, SousEtapeUpdatePayloadDto dto)
+        public async Task<SousEtapeResponseDto> Update(SousEtapeUpdatePayloadDto dto)
         {
-            SousEtape? sousEtape = await _repository.GetByIdAsync(id);
+            SousEtape? sousEtape = await _repository.GetByIdAsync(dto.Id);
             if (sousEtape is null)
             {
                 _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {dto.Id}");

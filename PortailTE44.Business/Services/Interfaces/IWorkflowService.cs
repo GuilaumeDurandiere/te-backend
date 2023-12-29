@@ -8,7 +8,7 @@ namespace PortailTE44.Business.Services.Interfaces
         Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto);
         Task<WorkflowResponseDto> GetById(int id);
         Task<IEnumerable<WorkflowItemResponseDto>> GetAll();
-        Task<WorkflowResponseDto> Update(int id, WorkflowUpdatePayloadDto dto);
+        Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto);
         Task Delete(int id);
     }
 }

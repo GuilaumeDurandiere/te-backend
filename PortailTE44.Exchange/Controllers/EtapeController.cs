@@ -36,11 +36,11 @@ namespace PortailTE44.Exchange.Controllers
             return Results.Created("", responseDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> Update(int id, [FromBody] EtapeUpdatePayloadDto dto)
+        public async Task<IResult> Update([FromBody] EtapeUpdatePayloadDto dto)
         {
-            EtapeResponseDto responseDto = await _etapeService.Update(id, dto);
+            EtapeResponseDto responseDto = await _etapeService.Update(dto);
             return Results.Ok(responseDto);
         }
 

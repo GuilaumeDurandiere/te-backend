@@ -29,13 +29,13 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<Etape, EtapeResponseDto>(etape);
         }
 
-        public async Task<EtapeResponseDto> Update(int id, EtapeUpdatePayloadDto dto)
+        public async Task<EtapeResponseDto> Update(EtapeUpdatePayloadDto dto)
         {
-            Etape? etape = await _repository.GetByIdAsync(id);
+            Etape? etape = await _repository.GetByIdAsync(dto.Id);
             if (etape is null)
             {
-                _logger.LogInformation($"Aucune étape trouvée avec l'id {id}");
-                throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
+                _logger.LogInformation($"Aucune étape trouvée avec l'id {dto.Id}");
+                throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {dto.Id}");
             }
             etape.Libelle = dto.Libelle;
             etape.Description = dto.Description;

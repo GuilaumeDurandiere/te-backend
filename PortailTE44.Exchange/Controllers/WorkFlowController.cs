@@ -47,11 +47,11 @@ namespace PortailTE44.Exchange.Controllers
             return Results.Created("", responseDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> Update(int id, [FromBody] WorkflowUpdatePayloadDto dto)
+        public async Task<IResult> Update([FromBody] WorkflowUpdatePayloadDto dto)
         {
-            WorkflowResponseDto responseDto = await _workflowService.Update(id, dto);
+            WorkflowResponseDto responseDto = await _workflowService.Update(dto);
             return Results.Ok(responseDto);
         }
 

@@ -49,13 +49,13 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(workflows);
         }
 
-        public async Task<WorkflowResponseDto> Update(int id, WorkflowUpdatePayloadDto dto)
+        public async Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto)
         {
-            Workflow? workflow = await _repository.GetByIdAsync(id);
+            Workflow? workflow = await _repository.GetByIdAsync(dto.Id);
             if (workflow is null)
             {
-                _logger.LogInformation($"Le workflow avec l'id {id} n'existe pas");
-                throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
+                _logger.LogInformation($"Le workflow avec l'id {dto.Id} n'existe pas");
+                throw new KeyNotFoundException($"Le workflow avec l'id {dto.Id} n'existe pas");
             }
             workflow.Libelle = dto.Libelle;
             workflow.Actif = dto.Actif;

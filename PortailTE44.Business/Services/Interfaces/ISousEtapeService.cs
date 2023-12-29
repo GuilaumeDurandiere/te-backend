@@ -7,7 +7,7 @@ namespace PortailTE44.Business.Services.Interfaces
     {
         Task<SousEtapeResponseDto> Create(SousEtapeCreatePayloadDto dto);
         Task<SousEtapeResponseDto> Get(int id);
-        Task<SousEtapeResponseDto> Update(int id, SousEtapeUpdatePayloadDto dto);
+        Task<SousEtapeResponseDto> Update(SousEtapeUpdatePayloadDto dto);
         Task Delete(int id);
     }
 }
