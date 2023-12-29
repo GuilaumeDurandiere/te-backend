@@ -28,8 +28,8 @@ namespace PortailTE44.Business.Services
 
         public async Task<SousEtapeResponseDto> Get(int id) 
         {
-            SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if (sousEtape == null)
+            SousEtape? sousEtape = await _repository.GetByIdAsync(id);
+            if (sousEtape is null)
             {
                 _logger.LogInformation($"Aucune étape avec l'id {id} n'a été retrouvé");
                 throw new KeyNotFoundException($"Aucune étape avec l'id {id} n'a été retrouvé");
@@ -39,8 +39,8 @@ namespace PortailTE44.Business.Services
 
         public async Task<SousEtapeResponseDto> Update(int id, SousEtapeUpdatePayloadDto dto)
         {
-            SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if (sousEtape == null)
+            SousEtape? sousEtape = await _repository.GetByIdAsync(id);
+            if (sousEtape is null)
             {
                 _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {dto.Id}");
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {dto.Id}");
@@ -54,8 +54,8 @@ namespace PortailTE44.Business.Services
 
         public async Task Delete (int id)
         {
-            SousEtape sousEtape = await _repository.GetByIdAsync(id);
-            if (sousEtape == null)
+            SousEtape? sousEtape = await _repository.GetByIdAsync(id);
+            if (sousEtape is null)
             {
                 _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {id}");
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {id}");

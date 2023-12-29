@@ -19,8 +19,8 @@ builder.Logging.AddSerilog(logger);
 
 ConfigurationManager configuration = builder.Configuration;
 configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.user.{Environment.UserName}.json", true, true)
     .AddJsonFile($"appsettings.Docker.json", true, true)
+    .AddJsonFile($"appsettings.user.{Environment.UserName}.json", true, true)
     .AddEnvironmentVariables();
 
 builder.Services.ConfigureDatabase(configuration);

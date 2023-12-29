@@ -12,6 +12,8 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<IWorkflowService, WorkflowService>();
             services.AddScoped<IEtapeService, EtapeService>();
             services.AddScoped<ISousEtapeService, SousEtapeService>();
+            services.AddScoped<IThemeService, ThemeService>();
+            services.AddScoped<ISousThemeService, SousThemeService>();
         }
     }
 }
