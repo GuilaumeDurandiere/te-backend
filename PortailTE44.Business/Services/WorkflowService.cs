@@ -61,7 +61,7 @@ namespace PortailTE44.Business.Services
         {
             Workflow? workflow = await _repository.GetByIdAsync(id);
             if (workflow is null)
-            { }
+            { 
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
             }
             _repository.Delete(workflow);
