@@ -14,6 +14,8 @@ namespace PortailTE44.DAL
         public virtual DbSet<Workflow> Workflows { get; set; } = default!;
         public virtual DbSet<Etape> Etapes { get; set; } = default!;
         public virtual DbSet<SousEtape> SousEtapes { get; set; } = default!;
+        public virtual DbSet<Theme> Themes { get; set; } = default!;
+        public virtual DbSet<SousTheme> SousThemes { get; set; } = default!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

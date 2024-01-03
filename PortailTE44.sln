@@ -4,20 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortailTE44.Exchange", "PortailTE44.Exchange\PortailTE44.Exchange.csproj", "{D027C9AC-F7DF-48EF-8DB1-FE8CF1D38D0C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{6D867B14-3C2C-4ECE-8465-E8CF1F3062D0} = {6D867B14-3C2C-4ECE-8465-E8CF1F3062D0}
-		{80ECF42E-71A2-4CBA-A34B-6279736E3A09} = {80ECF42E-71A2-4CBA-A34B-6279736E3A09}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortailTE44.Common", "PortailTE44.Common\PortailTE44.Common.csproj", "{6D867B14-3C2C-4ECE-8465-E8CF1F3062D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortailTE44.Business", "PortailTE44.Business\PortailTE44.Business.csproj", "{80ECF42E-71A2-4CBA-A34B-6279736E3A09}"
-	ProjectSection(ProjectDependencies) = postProject
-		{13FF6254-0604-4358-AB73-11DDA570F294} = {13FF6254-0604-4358-AB73-11DDA570F294}
-		{6D867B14-3C2C-4ECE-8465-E8CF1F3062D0} = {6D867B14-3C2C-4ECE-8465-E8CF1F3062D0}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortailTE44.DAL", "PortailTE44.DAL\PortailTE44.DAL.csproj", "{13FF6254-0604-4358-AB73-11DDA570F294}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE63624D-7938-4075-ABC5-D651B3C29DBD}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

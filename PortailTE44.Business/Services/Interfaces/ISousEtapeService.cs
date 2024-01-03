@@ -6,5 +6,8 @@ namespace PortailTE44.Business.Services.Interfaces
     public interface ISousEtapeService : IGenericService<SousEtape>
     {
         Task<SousEtapeResponseDto> Create(SousEtapeCreatePayloadDto dto);
+        Task<SousEtapeResponseDto> Get(int id);
+        Task<SousEtapeResponseDto> Update(SousEtapeUpdatePayloadDto dto);
+        Task Delete(int id);
     }
 }

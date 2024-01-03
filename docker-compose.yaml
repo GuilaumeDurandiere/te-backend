@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - ASPNETCORE_ENVIRONMENT=Docker
     ports:
       - "8080:80"
     depends_on:

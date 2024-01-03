@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -8,7 +9,7 @@ namespace PortailTE44.Business.Services
     {
         protected readonly IGenericRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
-
+     
         public GenericService(IGenericRepository<TEntity> repository,
                               IMapper mapper)
         {

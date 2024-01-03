@@ -1,8 +1,8 @@
 using app.Context;
 using Microsoft.EntityFrameworkCore;
-
 using FluentMigrator.Runner;
 using PortailTE44.Business.Extensions;
+using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
@@ -18,6 +18,11 @@ builder.Logging.AddSerilog(logger);
 // Add services to the container.
 
 ConfigurationManager configuration = builder.Configuration;
+configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.Docker.json", true, true)
+    .AddJsonFile($"appsettings.user.{Environment.UserName}.json", true, true)
+    .AddEnvironmentVariables();
+
 builder.Services.ConfigureDatabase(configuration);
 builder.Services.ConfigureFluentMigrator(configuration);
 builder.Services.AddControllers();
@@ -31,6 +36,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.ConfigureRepositories();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 
 var app = builder.Build();
 
