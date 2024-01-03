@@ -19,11 +19,12 @@ namespace PortailTE44.Exchange.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<IResult> GetById(int id)
 		{
 			SousThemeResponseDto response = await _sousThemeService.GetById(id);
-			return Results.Ok(response);
+			return response != null ? Results.Ok(response) : Results.NotFound();
 		}
 
 		[HttpPost]

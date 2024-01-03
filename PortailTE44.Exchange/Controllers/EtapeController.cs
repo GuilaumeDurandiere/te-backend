@@ -22,10 +22,11 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IResult> GetById(int id)
         {
             EtapeResponseDto responseDto = await _etapeService.GetById(id);
-            return Results.Ok(responseDto);
+            return responseDto != null ? Results.Ok(responseDto) : Results.NotFound();
         }
 
         [HttpPost()]

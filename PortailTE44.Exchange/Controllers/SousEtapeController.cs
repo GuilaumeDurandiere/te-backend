@@ -31,10 +31,11 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IResult> Get(int id)
         {
             SousEtapeResponseDto sousEtapeResponseDto = await _sousEtapeService.Get(id);
-            return Results.Ok(sousEtapeResponseDto);
+            return sousEtapeResponseDto != null ? Results.Ok(sousEtapeResponseDto) : Results.NotFound();
         }
 
         [HttpDelete("{id}")]

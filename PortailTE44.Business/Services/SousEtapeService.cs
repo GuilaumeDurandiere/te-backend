@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousEtapes;
 using PortailTE44.DAL.Entities;
@@ -9,13 +8,10 @@ namespace PortailTE44.Business.Services
 {
     public class SousEtapeService : GenericService<SousEtape>, ISousEtapeService
     {
-        ILogger<SousEtapeService> _logger;
         public SousEtapeService(
             IGenericRepository<SousEtape> repository,
-            IMapper mapper,
-            ILogger<SousEtapeService> logger
+            IMapper mapper
         ) : base(repository, mapper) {
-            _logger = logger;
         }
 
         public async Task<SousEtapeResponseDto> Create(SousEtapeCreatePayloadDto dto)
@@ -31,7 +27,6 @@ namespace PortailTE44.Business.Services
             SousEtape? sousEtape = await _repository.GetByIdAsync(id);
             if (sousEtape is null)
             {
-                _logger.LogInformation($"Aucune étape avec l'id {id} n'a été retrouvé");
                 throw new KeyNotFoundException($"Aucune étape avec l'id {id} n'a été retrouvé");
             }
             return _mapper.Map <SousEtape, SousEtapeResponseDto>(sousEtape);
@@ -42,7 +37,6 @@ namespace PortailTE44.Business.Services
             SousEtape? sousEtape = await _repository.GetByIdAsync(dto.Id);
             if (sousEtape is null)
             {
-                _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {dto.Id}");
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {dto.Id}");
             }
             sousEtape.Description = dto.Description;
@@ -57,7 +51,6 @@ namespace PortailTE44.Business.Services
             SousEtape? sousEtape = await _repository.GetByIdAsync(id);
             if (sousEtape is null)
             {
-                _logger.LogInformation($"Il n'existe aucune sous étape avec l'id {id}");
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {id}");
             }
             _repository.Delete(sousEtape);
