@@ -9,12 +9,16 @@ namespace PortailTE44.Business.Services
     public class EtapeService : GenericService<Etape>, IEtapeService
     {
         protected readonly IEtapeRepository _etapeRepository;
+        protected readonly ISousEtapeService _sousEtapeService;
+
         public EtapeService(
             IEtapeRepository etapeRepository,
-            IMapper mapper
+            IMapper mapper,
+            ISousEtapeService sousEtapeService
         ) : base(etapeRepository, mapper)
         {
             _etapeRepository = etapeRepository;
+            _sousEtapeService = sousEtapeService;
         }
 
         public async Task<EtapeResponseDto> Create(EtapeCreatePayloadDto dto)
@@ -61,6 +65,9 @@ namespace PortailTE44.Business.Services
             if (workflowEtapes.Count() == 1)
             {
                 throw new ArgumentException("Impossible de supprimer l'étape car un workflow doit posséder au moins une étape");
+            }
+            foreach(SousEtape sousEtape in etape.SousEtapes!) {
+                await _sousEtapeService.Delete(sousEtape.Id);
             }
             _repository.Delete(etape);
             await _repository.SaveAsync();
