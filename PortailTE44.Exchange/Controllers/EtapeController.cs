@@ -9,55 +9,47 @@ namespace PortailTE44.Exchange.Controllers
     public class EtapeController
     {
         private readonly IEtapeService _etapeService;
-        private readonly ILogger<EtapeController> _logger;
 
         public EtapeController(
-            IEtapeService etapeService,
-            ILogger<EtapeController> logger
+            IEtapeService etapeService
         )
         {
             _etapeService = etapeService;
-            _logger = logger;
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> GetById(int id)
+        public async Task<EtapeResponseDto> GetById(int id)
         {
-            EtapeResponseDto responseDto = await _etapeService.GetById(id);
-            return Results.Ok(responseDto);
+            return await _etapeService.GetById(id);
         }
 
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IResult> Create([FromBody] EtapeCreatePayloadDto dto)
+        public async Task<EtapeResponseDto> Create([FromBody] EtapeCreatePayloadDto dto)
         {
-            EtapeResponseDto responseDto = await _etapeService.Create(dto);
-            return Results.Created("", responseDto);
+            return await _etapeService.Create(dto);
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> Update([FromBody] EtapeUpdatePayloadDto dto)
+        public async Task<EtapeResponseDto> Update([FromBody] EtapeUpdatePayloadDto dto)
         {
-            EtapeResponseDto responseDto = await _etapeService.Update(dto);
-            return Results.Ok(responseDto);
+            return await _etapeService.Update(dto);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IResult> Delete([FromRoute] int id)
+        public async Task Delete([FromRoute] int id)
         {
             await _etapeService.Delete(id);
-            return Results.NoContent();
         }
 
         [HttpGet("GetByWorkflow/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> GetByWorkflow([FromRoute] int id)
+        public async Task<IEnumerable<EtapeResponseDto>> GetByWorkflow([FromRoute] int id)
         {
-            IEnumerable<EtapeResponseDto> responseDtos = await _etapeService.GetByWorkflowId(id);
-            return Results.Ok(responseDtos);
+            return await _etapeService.GetByWorkflowId(id);
         }
     }
 }
