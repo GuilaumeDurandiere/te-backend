@@ -31,7 +31,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("dbPortailTE44")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("dbPortailTE44")!));
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ConfigureServices();

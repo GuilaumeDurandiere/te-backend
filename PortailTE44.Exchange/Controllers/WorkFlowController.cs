@@ -2,7 +2,6 @@
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Workflow;
 using PortailTE44.Common.Utils;
-using Microsoft.EntityFrameworkCore;
 
 namespace PortailTE44.Exchange.Controllers
 {
@@ -11,57 +10,49 @@ namespace PortailTE44.Exchange.Controllers
     public class WorkflowController
     {
         private readonly IWorkflowService _workflowService;
-        private readonly ILogger<WorkflowController> _logger;
 
         public WorkflowController(
-            IWorkflowService workflowService,
-            ILogger<WorkflowController> logger
+            IWorkflowService workflowService
         )
         {
             _workflowService = workflowService;
-            _logger = logger;
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IResult> GetById(int id)
+        public async Task<WorkflowResponseDto> GetById(int id)
         {
-            WorkflowResponseDto result = await _workflowService.GetById(id);
-            return result != null ? Results.Ok(result) : Results.NotFound();
+            return await _workflowService.GetById(id);
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> GetAll(int size, int page)
+        public async Task<PaginatedList<WorkflowItemResponseDto>> GetAll(int size, int page)
         {
             IEnumerable<WorkflowItemResponseDto> result = await _workflowService.GetAll();
-            return Results.Ok(PaginatedList<WorkflowItemResponseDto>.Create(result.AsQueryable(), page, size));
+            return PaginatedList<WorkflowItemResponseDto>.Create(result.AsQueryable(), page, size);
         }
 
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IResult> Create([FromBody] WorkflowCreatePayloadDto dto)
+        public async Task<WorkflowResponseDto> Create([FromBody] WorkflowCreatePayloadDto dto)
         {
-            WorkflowResponseDto responseDto = await _workflowService.Create(dto);
-            return Results.Created("", responseDto);
+            return await _workflowService.Create(dto);
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IResult> Update([FromBody] WorkflowUpdatePayloadDto dto)
+        public async Task<WorkflowResponseDto> Update([FromBody] WorkflowUpdatePayloadDto dto)
         {
-            WorkflowResponseDto responseDto = await _workflowService.Update(dto);
-            return Results.Ok(responseDto);
+            return await _workflowService.Update(dto);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IResult> Delete([FromRoute] int id)
+        public async Task Delete([FromRoute] int id)
         {
             await _workflowService.Delete(id);
-
-            return Results.NoContent();
         }
     }
 }
