@@ -7,6 +7,5 @@ namespace PortailTE44.Common.Dtos.Etape
         public string Libelle { get; set; } = default!;
         public string? Description { get; set; }
         public string Statut { get; set; } = default!;
-        public IEnumerable<SousEtapeResponseDto> SousEtapes { get; set; }
     }
 }

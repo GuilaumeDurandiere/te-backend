@@ -14,7 +14,8 @@ namespace PortailTE44.DAL.Configurations
                   .ValueGeneratedOnAdd();
             entity.HasOne(se => se.Etape)
                   .WithMany(e => e.SousEtapes)
-                  .HasForeignKey(e => e.EtapeId);
+                  .HasForeignKey(e => e.EtapeId)
+                  .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
