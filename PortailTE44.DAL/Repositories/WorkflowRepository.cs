@@ -17,6 +17,7 @@ namespace PortailTE44.DAL.Repositories
         {
             return await Context.Workflows
                                 .Include(w => w.Etapes)
+                                .ThenInclude(e => e.SousEtapes)
                                 .FirstOrDefaultAsync(w => w.Id == id);
         }
     }
