@@ -16,6 +16,13 @@ namespace PortailTE44.DAL.Repositories
                                 .Include(t => t.SousThemes)
                                 .FirstOrDefaultAsync(t => t.Id == id);
         }
+
+        public override async Task<IEnumerable<Theme>> GetAllAsync()
+        {
+            return await Context.Themes
+                                .Include(t => t.SousThemes)
+                                .ToListAsync();
+        }
     }
 }
 
