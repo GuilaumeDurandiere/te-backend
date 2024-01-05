@@ -8,8 +8,10 @@ namespace PortailTE44.Business.Services
 {
     public class SousThemeService : GenericService<SousTheme>, ISousThemeService
     {
-        public SousThemeService(IGenericRepository<SousTheme> repository, IMapper mapper) : base(repository, mapper)
+        protected readonly ISousThemeRepository _sousThemeRepository;
+        public SousThemeService(ISousThemeRepository sousThemeRepository, IMapper mapper) : base(sousThemeRepository, mapper)
         {
+            _sousThemeRepository = sousThemeRepository;
         }
 
         public async Task<SousThemeResponseDto> Create(SousThemeCreatePayloadDto dto)
@@ -23,7 +25,7 @@ namespace PortailTE44.Business.Services
         public async Task<SousThemeResponseDto> Update(SousThemeUpdatePayloadDto dto)
         {
             SousTheme? sousTheme = await _repository.GetByIdAsync(dto.Id);
-            if(sousTheme is null)
+            if (sousTheme is null)
             {
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {dto.Id}");
             }
@@ -34,7 +36,7 @@ namespace PortailTE44.Business.Services
         public async Task<SousThemeResponseDto> GetById(int id)
         {
             SousTheme? sousTheme = await _repository.GetByIdAsync(id);
-            if(sousTheme is null)
+            if (sousTheme is null)
             {
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {id}");
             }
@@ -44,12 +46,19 @@ namespace PortailTE44.Business.Services
         public async Task Delete(int id)
         {
             SousTheme? sousTheme = await _repository.GetByIdAsync(id);
-            if(sousTheme is null)
+            if (sousTheme is null)
             {
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {id}");
             }
             _repository.Delete(sousTheme);
             await _repository.SaveAsync();
+        }
+
+        //TEST NICH => faire un DTO specifique !!
+        public async Task<IEnumerable<SousThemeResponseDto>> GetByThemeId(int id)
+        {
+            IEnumerable<SousTheme> sousThemes = await _sousThemeRepository.GetByThemeId(id);
+            return _mapper.Map<IEnumerable<SousTheme>, IEnumerable<SousThemeResponseDto>>(sousThemes);
         }
     }
 }

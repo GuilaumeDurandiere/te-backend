@@ -61,7 +61,7 @@ namespace PortailTE44.Business.Services
             {
                 throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
             }
-            IEnumerable<Etape> workflowEtapes = await _etapeRepository.GetByWorkflowsId(etape.WorkflowId);
+            IEnumerable<Etape> workflowEtapes = await _etapeRepository.GetByWorkflowId(etape.WorkflowId);
             if (workflowEtapes.Count() == 1)
             {
                 throw new ArgumentException("Impossible de supprimer l'étape car un workflow doit posséder au moins une étape");
@@ -75,7 +75,7 @@ namespace PortailTE44.Business.Services
 
         public async Task<IEnumerable<EtapeResponseDto>> GetByWorkflowId(int id)
         {
-            IEnumerable<Etape> etapes = await _etapeRepository.GetByWorkflowsId(id);
+            IEnumerable<Etape> etapes = await _etapeRepository.GetByWorkflowId(id);
             return _mapper.Map<IEnumerable<Etape>, IEnumerable<EtapeResponseDto>>(etapes);
         }
     }

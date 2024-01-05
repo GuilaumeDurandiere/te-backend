@@ -20,7 +20,7 @@ namespace PortailTE44.DAL.Repositories
                                 .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IEnumerable<Etape>> GetByWorkflowsId(int id)
+        public async Task<IEnumerable<Etape>> GetByWorkflowId(int id)
         {
             return await Context.Etapes
                                 .Where(e => e.WorkflowId == id)

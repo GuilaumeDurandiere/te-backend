@@ -9,7 +9,6 @@ namespace PortailTE44.Business.Services
 {
     public class ThemeService : GenericService<Theme>, IThemeService
     {
-
         public ThemeService(IThemeRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }

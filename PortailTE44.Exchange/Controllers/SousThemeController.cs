@@ -42,7 +42,13 @@ namespace PortailTE44.Exchange.Controllers
 		public async Task Delete(int id)
 		{
 			await _sousThemeService.Delete(id);
-		} 
-	}
+		}
+
+        [HttpGet("getByTheme/{id}")]
+        public async Task<IEnumerable<SousThemeResponseDto>> GetOne([FromRoute] int id)
+		{
+			return await _sousThemeService.GetByThemeId(id);
+		}
+    }
 }
 
