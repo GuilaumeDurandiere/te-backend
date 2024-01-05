@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Workflow;
+using PortailTE44.Common.Utils;
 using PortailTE44.DAL.Entities;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -37,10 +39,25 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<Workflow, WorkflowResponseDto>(workflow);
         }
 
-        public async Task<IEnumerable<WorkflowItemResponseDto>> GetAll()
+        public async Task<IEnumerable<WorkflowItemResponseDto>> GetAllActive()
         {
-            IEnumerable<Workflow> workflows = await _repository.GetAllAsync();
+            IEnumerable<Workflow> workflows = await _repository.GetAll()
+                                                               .Where(w => w.Actif)
+                                                               .ToListAsync();
             return _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(workflows);
+        }
+
+        public PaginatedList<WorkflowItemResponseDto> GetAllPaginated(int size, int page)
+        {
+            IQueryable<Workflow> workflows = _repository.GetAll();
+            IQueryable<Workflow> results = workflows.Skip((page - 1) * size).Take(size);
+            return new PaginatedList<WorkflowItemResponseDto>
+            {
+                Results = _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(results),
+                Total = workflows.Count(),
+                PageIndex = page,
+                PageSize = size,
+            };
         }
 
         public async Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto)

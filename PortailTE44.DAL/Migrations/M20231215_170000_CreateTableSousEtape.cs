@@ -16,6 +16,7 @@ namespace PortailTE44.DAL.Migrations
 
         public override void Down()
         {
+            Delete.ForeignKey("FK_SousEtape_EtapeId_Etape_Id").OnTable("SousEtape");
             Delete.Table("SousEtape");
         }
     }

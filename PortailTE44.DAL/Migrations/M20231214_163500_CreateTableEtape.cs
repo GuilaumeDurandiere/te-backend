@@ -17,6 +17,7 @@ namespace PortailTE44.DAL.Migrations
 
         public override void Down()
         {
+            Delete.ForeignKey("FK_Etape_WorkflowId_Workflow_Id").OnTable("Etape");
             Delete.Table("Etape");
         }
     }

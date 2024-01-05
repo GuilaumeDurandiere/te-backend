@@ -5,11 +5,6 @@ namespace PortailTE44.DAL.Migrations
     [Migration(20231229_140000)]
     public class M20231229_140000_CreateTableSousTheme : Migration
     {
-        public override void Down()
-        {
-            Delete.Table("SousTheme");
-        }
-
         public override void Up()
         {
             Create.Table("SousTheme")
@@ -22,6 +17,12 @@ namespace PortailTE44.DAL.Migrations
                 .WithColumn("Description").AsString()
                 .WithColumn("MailReferent").AsString().NotNullable()
                 .WithColumn("ThemeId").AsInt32().NotNullable().ForeignKey("Theme", "Id");
+        }
+
+        public override void Down()
+        {
+            Delete.ForeignKey("FK_SousTheme_ThemeId_Theme_Id").OnTable("SousTheme");
+            Delete.Table("SousTheme");
         }
     }
 }

@@ -30,6 +30,11 @@ namespace PortailTE44.DAL.Repositories
             return await DbSet.ToListAsync();
         }
 
+        public virtual IQueryable<TEntity> GetAll()
+        {
+            return DbSet.AsQueryable<TEntity>();
+        }
+
         public virtual void Add(TEntity entity)
         {
             DbSet.Add(entity);

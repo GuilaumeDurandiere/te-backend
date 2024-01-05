@@ -5,24 +5,6 @@ namespace PortailTE44.DAL.Migrations
 	[Migration(20240104_140000)]
 	public class M20240104_140000_NullableColumn : Migration
 	{
-        public override void Down()
-        {
-            Alter.Table("Theme")
-              .AlterColumn("Description").AsString().NotNullable();
-            Alter.Table("SousTheme")
-                .AlterColumn("LienExterne").AsString().NotNullable()
-                .AlterColumn("Description").AsString().NotNullable()
-                .AlterColumn("DemandeSimple").AsBoolean().Nullable()
-                .AddColumn("Accessible").AsBoolean().NotNullable()
-                .AddColumn("TypeWorkflow").AsString().NotNullable();
-            Delete.Column("Icone").FromTable("SousTheme");
-            Delete.Column("AccessibleATous").FromTable("SousTheme");
-            Delete.Column("HorsTravaux").FromTable("SousTheme");
-            Delete.Column("Couleur").FromTable("SousTheme");
-            Delete.Column("WorkflowTravauxSimplifie").FromTable("SousTheme");
-            Delete.Column("WorkflowId").FromTable("SousTheme");
-        }
-
         public override void Up()
         {
             Alter.Table("Theme")
@@ -40,6 +22,24 @@ namespace PortailTE44.DAL.Migrations
             Delete.Column("TypeWorkflow").FromTable("SousTheme");
             Delete.Column("Accessible").FromTable("SousTheme");
 
+        }
+
+        public override void Down()
+        {
+            Alter.Table("Theme")
+              .AlterColumn("Description").AsString().NotNullable();
+            Alter.Table("SousTheme")
+                .AlterColumn("LienExterne").AsString().NotNullable()
+                .AlterColumn("Description").AsString().NotNullable()
+                .AlterColumn("DemandeSimple").AsBoolean().Nullable()
+                .AddColumn("Accessible").AsBoolean().NotNullable()
+                .AddColumn("TypeWorkflow").AsString().NotNullable();
+            Delete.Column("Icone").FromTable("SousTheme");
+            Delete.Column("AccessibleATous").FromTable("SousTheme");
+            Delete.Column("HorsTravaux").FromTable("SousTheme");
+            Delete.Column("Couleur").FromTable("SousTheme");
+            Delete.Column("WorkflowTravauxSimplifie").FromTable("SousTheme");
+            Delete.Column("WorkflowId").FromTable("SousTheme");
         }
     }
 }

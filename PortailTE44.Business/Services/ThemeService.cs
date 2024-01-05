@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Theme;
+using PortailTE44.Common.Utils;
 using PortailTE44.DAL.Entities;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -62,6 +63,18 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeResponseDto>>(themes);
         }
 
+        public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page)
+        {
+            IQueryable<Theme> themes = _repository.GetAll();
+            IQueryable<Theme> results = themes.Skip((page - 1) * size).Take(size);
+            return new PaginatedList<ThemeResponseDto>
+            {
+                Results = _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeResponseDto>>(results),
+                Total = themes.Count(),
+                PageIndex = page,
+                PageSize = size,
+            };
+        }
     }
 }
 

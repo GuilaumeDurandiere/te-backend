@@ -5,6 +5,7 @@
         Task<TEntity?> GetByIdAsync(int id);
         Task<IEnumerable<TEntity>> GetByIdsAsync(int[] ids);
         Task<IEnumerable<TEntity>> GetAllAsync();
+        IQueryable<TEntity> GetAll();
         void Add(TEntity entity);
         void AddAll(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
