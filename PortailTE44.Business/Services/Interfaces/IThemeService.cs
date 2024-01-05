@@ -1,5 +1,4 @@
-﻿using System;
-using PortailTE44.Common.Dtos.Theme;
+﻿using PortailTE44.Common.Dtos.Theme;
 using PortailTE44.DAL.Entities;
 
 namespace PortailTE44.Business.Services.Interfaces
