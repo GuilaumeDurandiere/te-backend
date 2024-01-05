@@ -15,11 +15,11 @@ namespace PortailTE44.DAL.Migrations
             Create.Table("SousTheme")
                 .WithColumn("Id").AsInt32().NotNullable().Identity().PrimaryKey()
                 .WithColumn("Libelle").AsString().NotNullable()
-                .WithColumn("LienExterne").AsString().Nullable()
-                .WithColumn("DemandeSimple").AsBoolean().Nullable()
-                .WithColumn("TypeWorkflow").AsString().Nullable()
-                .WithColumn("Accessible").AsBoolean().Nullable()
-                .WithColumn("Description").AsString().Nullable()
+                .WithColumn("LienExterne").AsString()
+                .WithColumn("DemandeSimple").AsBoolean()
+                .WithColumn("TypeWorkflow").AsString()
+                .WithColumn("Accessible").AsBoolean()
+                .WithColumn("Description").AsString()
                 .WithColumn("MailReferent").AsString().NotNullable()
                 .WithColumn("ThemeId").AsInt32().NotNullable().ForeignKey("Theme", "Id");
         }

@@ -10,6 +10,8 @@ namespace PortailTE44.Business.Services.Interfaces
 		Task<ThemeResponseDto> Update(ThemeUpdatePayloadDto dto);
 		Task<ThemeResponseDto> GetById(int id);
 		Task Delete(int id);
-	}
+		Task<IEnumerable<ThemeResponseDto>> GetAll();
+
+    }
 }
 

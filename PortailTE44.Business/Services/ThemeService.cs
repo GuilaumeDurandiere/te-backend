@@ -56,6 +56,12 @@ namespace PortailTE44.Business.Services
             await _repository.SaveAsync(); 
         }
 
+        public async Task<IEnumerable<ThemeResponseDto>> GetAll()
+        {
+            IEnumerable<Theme> themes = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeResponseDto>>(themes);
+        }
+
     }
 }
 

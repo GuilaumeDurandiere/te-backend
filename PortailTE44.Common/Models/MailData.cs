@@ -1,28 +1,24 @@
-﻿using System;
-namespace PortailTE44.Common.Models
+﻿namespace PortailTE44.Common.Models
 {
 	public class MailData
 	{
-        public List<string> To { get; }
-        public List<string> Bcc { get; }
+        public List<string> To { get; set; } = default!;
+        public List<string> Bcc { get; set; } = default!;
 
-        public List<string> Cc { get; }
+        public List<string> Cc { get; set; } = default!;
 
-        public string? From { get; }
+        public string? From { get; set; }
 
-        public string? DisplayName { get; }
+        public string? DisplayName { get; set; }
 
-        public string? ReplyTo { get; }
+        public string? ReplyTo { get; set; }
 
-        public string? ReplyToName { get; }
+        public string? ReplyToName { get; set; }
 
-        public string Subject { get; }
+        public string Subject { get; set; } = default!;
 
-        public string? Body { get; }
+        public string? Body { get; set; }
 
-        public MailData()
-		{
-		}
 	}
 }
 
