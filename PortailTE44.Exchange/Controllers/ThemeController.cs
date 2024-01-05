@@ -23,7 +23,6 @@ namespace PortailTE44.Exchange.Controllers
             return await _themeService.GetAll();
         }
 
-        //NICH signaler le changement de nom
         [HttpGet("paginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page)

@@ -26,7 +26,6 @@ namespace PortailTE44.Exchange.Controllers
             return await _workflowService.GetById(id);
         }
 
-        //NICH signaler le nouveau nom et préciser qu'il servira pour alimenter la ddl des workflow pour un sous theme 
         [HttpGet("getActive")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<WorkflowItemResponseDto>> GetAllActive()
@@ -34,10 +33,9 @@ namespace PortailTE44.Exchange.Controllers
             return await _workflowService.GetAllActive();
         }
 
-        //NICH signaler le changement de nom
         [HttpGet("paginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public PaginatedList<WorkflowItemResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page)
         {
             return _workflowService.GetAllPaginated(size, page);
         }

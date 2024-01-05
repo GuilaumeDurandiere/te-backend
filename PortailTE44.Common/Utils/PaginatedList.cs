@@ -4,7 +4,6 @@
     {
         public IEnumerable<T> Results { get; set; } = default!;
 
-        //NICH signaler le changement de nom
         public int Total { get; set; }
 
         public int PageIndex { get; set; }

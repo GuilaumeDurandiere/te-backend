@@ -3,6 +3,5 @@
     public class WorkflowItemResponseDto : WorkflowBaseDto
     {
         public int Id { get; set; }
-        public bool Actif { get; set; } = default!;
     }
 }

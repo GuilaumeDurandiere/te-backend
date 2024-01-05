@@ -47,13 +47,13 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(workflows);
         }
 
-        public PaginatedList<WorkflowItemResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page)
         {
             IQueryable<Workflow> workflows = _repository.GetAll();
             IQueryable<Workflow> results = workflows.Skip((page - 1) * size).Take(size);
-            return new PaginatedList<WorkflowItemResponseDto>
+            return new PaginatedList<WorkflowPaginatedResponseDto>
             {
-                Results = _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(results),
+                Results = _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowPaginatedResponseDto>>(results),
                 Total = workflows.Count(),
                 PageIndex = page,
                 PageSize = size,
