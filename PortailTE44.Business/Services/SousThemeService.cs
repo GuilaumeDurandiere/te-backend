@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousTheme;
 using PortailTE44.DAL.Entities;
@@ -9,10 +8,8 @@ namespace PortailTE44.Business.Services
 {
     public class SousThemeService : GenericService<SousTheme>, ISousThemeService
     {
-        ILogger<SousThemeService> _logger;
-        public SousThemeService(IGenericRepository<SousTheme> repository, IMapper mapper, ILogger<SousThemeService> logger) : base(repository, mapper)
+        public SousThemeService(IGenericRepository<SousTheme> repository, IMapper mapper) : base(repository, mapper)
         {
-            _logger = logger;
         }
 
         public async Task<SousThemeResponseDto> Create(SousThemeCreatePayloadDto dto)
@@ -28,7 +25,6 @@ namespace PortailTE44.Business.Services
             SousTheme? sousTheme = await _repository.GetByIdAsync(dto.Id);
             if(sousTheme is null)
             {
-                _logger.LogInformation($"Il n'existe aucun sous thème avec l'id {dto.Id}");
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {dto.Id}");
             }
             _repository.Update(sousTheme);
@@ -40,7 +36,6 @@ namespace PortailTE44.Business.Services
             SousTheme? sousTheme = await _repository.GetByIdAsync(id);
             if(sousTheme is null)
             {
-                _logger.LogInformation($"Il n'existe aucun sous thème avec l'id {id}");
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {id}");
             }
             return _mapper.Map<SousTheme, SousThemeResponseDto>(sousTheme);
@@ -51,7 +46,6 @@ namespace PortailTE44.Business.Services
             SousTheme? sousTheme = await _repository.GetByIdAsync(id);
             if(sousTheme is null)
             {
-                _logger.LogInformation($"Il n'existe aucun sous thème avec l'id {id}");
                 throw new KeyNotFoundException($"Il n'existe aucun sous thème avec l'id {id}");
             }
             _repository.Delete(sousTheme);

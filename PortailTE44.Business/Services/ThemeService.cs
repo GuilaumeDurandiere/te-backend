@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Theme;
 using PortailTE44.DAL.Entities;
@@ -9,11 +8,9 @@ namespace PortailTE44.Business.Services
 {
     public class ThemeService : GenericService<Theme>, IThemeService
     {
-        ILogger<ThemeService> _logger;
 
-        public ThemeService(IGenericRepository<Theme> repository, IMapper mapper, ILogger<ThemeService> logger) : base(repository, mapper)
+        public ThemeService(IGenericRepository<Theme> repository, IMapper mapper) : base(repository, mapper)
         {
-            _logger = logger;
         }
 
         public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
@@ -29,7 +26,6 @@ namespace PortailTE44.Business.Services
             Theme? theme = await _repository.GetByIdAsync(dto.Id);
             if(theme is null)
             {
-                _logger.LogInformation($"Le theme avec l'id {dto.Id} n'existe pas");
                 throw new KeyNotFoundException($"Le theme avec l'id {dto.Id} n'existe pas");
             }
             theme.Libelle = dto.Libelle;
@@ -44,7 +40,6 @@ namespace PortailTE44.Business.Services
             Theme? theme = await _repository.GetByIdAsync(id);
             if(theme is null)
             {
-                _logger.LogInformation($"Le theme avec l'id {id} n'existe pas");
                 throw new KeyNotFoundException($"Le theme avec l'id {id} n'existe pas");
             }
             return _mapper.Map<Theme, ThemeResponseDto>(theme);
@@ -55,11 +50,16 @@ namespace PortailTE44.Business.Services
             Theme? theme = await _repository.GetByIdAsync(id);
             if(theme is null)
             {
-                _logger.LogInformation($"Le theme avec l'id {id} n'existe pas");
                 throw new KeyNotFoundException($"Le theme avec l'id {id} n'existe pas");
             }
             _repository.Delete(theme);
             await _repository.SaveAsync(); 
+        }
+
+        public async Task<IEnumerable<ThemeResponseDto>> GetAll()
+        {
+            IEnumerable<Theme> themes = await _repository.GetAllAsync();
+            return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeResponseDto>>(themes);
         }
 
     }

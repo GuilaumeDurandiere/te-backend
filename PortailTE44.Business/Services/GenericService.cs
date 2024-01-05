@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.DAL.Repositories.Interfaces;
 

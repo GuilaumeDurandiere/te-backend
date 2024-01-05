@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Workflow;
 using PortailTE44.DAL.Entities;
@@ -9,20 +8,16 @@ namespace PortailTE44.Business.Services
 {
     public class WorkflowService : GenericService<Workflow>, IWorkflowService
     {
-        ILogger<WorkflowService> _logger;
         public WorkflowService(
             IWorkflowRepository repository,
-            IMapper mapper,
-            ILogger<WorkflowService> logger
+            IMapper mapper
         ) : base(repository, mapper) {
-            _logger = logger;
         }
 
         public async Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto)
         {
             if (dto.Etapes is null || !dto.Etapes.Any())
             {
-                _logger.LogInformation("Un workflow doit posséder au moins une étape");
                 throw new ArgumentException("Un workflow doit posséder au moins une étape");
             }
             Workflow workflow = _mapper.Map<WorkflowCreatePayloadDto, Workflow>(dto);
@@ -37,7 +32,6 @@ namespace PortailTE44.Business.Services
             Workflow? workflow = await _repository.GetByIdAsync(id);
             if (workflow is null)
             {
-                _logger.LogInformation($"Le workflow avec l'id {id} n'existe pas");
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
             }
             return _mapper.Map<Workflow, WorkflowResponseDto>(workflow);
@@ -54,7 +48,6 @@ namespace PortailTE44.Business.Services
             Workflow? workflow = await _repository.GetByIdAsync(dto.Id);
             if (workflow is null)
             {
-                _logger.LogInformation($"Le workflow avec l'id {dto.Id} n'existe pas");
                 throw new KeyNotFoundException($"Le workflow avec l'id {dto.Id} n'existe pas");
             }
             workflow.Libelle = dto.Libelle;
@@ -68,8 +61,7 @@ namespace PortailTE44.Business.Services
         {
             Workflow? workflow = await _repository.GetByIdAsync(id);
             if (workflow is null)
-            {
-                _logger.LogInformation($"Le workflow avec l'id {id} n'existe pas");
+            { 
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
             }
             _repository.Delete(workflow);

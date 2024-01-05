@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Theme;
+using PortailTE44.Common.Utils;
 
 namespace PortailTE44.Exchange.Controllers
 {
@@ -13,6 +14,13 @@ namespace PortailTE44.Exchange.Controllers
 		public ThemeController(IThemeService themeService)
 		{
 			_themeService = themeService;
+		}
+
+		[HttpGet]
+		public async Task<PaginatedList<ThemeResponseDto>> GetAll(int size, int page)
+		{
+			IEnumerable<ThemeResponseDto> response = await _themeService.GetAll();
+			return PaginatedList<ThemeResponseDto>.Create(response.AsQueryable(), page, size);
 		}
 
 		[HttpGet("{id}")]

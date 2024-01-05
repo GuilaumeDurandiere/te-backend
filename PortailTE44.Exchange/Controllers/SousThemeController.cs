@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousTheme;
 
@@ -16,6 +16,7 @@ namespace PortailTE44.Exchange.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<SousThemeResponseDto> GetById(int id)
 		{

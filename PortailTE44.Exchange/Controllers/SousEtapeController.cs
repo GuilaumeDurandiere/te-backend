@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousEtapes;
 

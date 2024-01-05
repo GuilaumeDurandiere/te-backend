@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using PortailTE44.DAL.Entities;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -7,14 +6,11 @@ namespace PortailTE44.DAL.Repositories
 {
     public class EtapeRepository : GenericRepository<Etape>, IEtapeRepository
     {
-        ILogger<EtapeRepository> _logger;
 
         public EtapeRepository(
-            PortailTE44Context context,
-            ILogger<EtapeRepository> logger
+            PortailTE44Context context
         ) : base(context)
         {
-            _logger = logger;
         }
 
         public override async Task<Etape?> GetByIdAsync(int id)
