@@ -6,6 +6,7 @@ namespace PortailTE44.DAL.Entities
 		public string Libelle { get; set; } = default!;
 		public string? Description { get; set; }
 		public string Icone { get; set; } = default!;
+		public IEnumerable<SousTheme> SousThemes { get; set; } = default!;
 	}
 }
 
