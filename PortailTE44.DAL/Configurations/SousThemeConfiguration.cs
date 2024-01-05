@@ -9,12 +9,12 @@ namespace PortailTE44.DAL.Configurations
         public void Configure(EntityTypeBuilder<SousTheme> entity)
         {
             entity.ToTable("SousTheme");
-            entity.HasKey(t => t.Id);
-            entity.Property(t => t.Id)
+            entity.HasKey(st => st.Id);
+            entity.Property(st => st.Id)
                   .ValueGeneratedOnAdd();
             entity.HasOne(st => st.Theme)
                   .WithMany(t => t.SousThemes)
-                  .HasForeignKey(e => e.ThemeId);
+                  .HasForeignKey(st => st.ThemeId);
         }
     }
 }

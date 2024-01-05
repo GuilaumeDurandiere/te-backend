@@ -9,8 +9,8 @@ namespace PortailTE44.DAL.Configurations
         public void Configure(EntityTypeBuilder<Workflow> entity)
         {
             entity.ToTable("Workflow");
-            entity.HasKey(p => p.Id);
-            entity.Property(p => p.Id)
+            entity.HasKey(w => w.Id);
+            entity.Property(w => w.Id)
                   .ValueGeneratedOnAdd();
         }
     }

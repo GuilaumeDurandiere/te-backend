@@ -10,7 +10,8 @@ namespace PortailTE44.DAL.Migrations
             Create.Table("Theme")
                .WithColumn("Id").AsInt32().NotNullable().Identity().PrimaryKey()
                .WithColumn("Libelle").AsString().NotNullable()
-               .WithColumn("Description").AsString();
+               .WithColumn("Description").AsString().Nullable()
+               .WithColumn("Icone").AsString().Nullable();
         }
 
         public override void Down()
