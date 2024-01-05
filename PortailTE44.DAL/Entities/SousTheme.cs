@@ -8,6 +8,7 @@
 		public bool AccessibleATous { get; set; }
 		public string? Description { get; set; }
 		public string MailReferent { get; set; } = default!;
+		public int ThemeId { get; set; } = default!;
 		public Theme Theme { get; set; } = default!;
 		public string Icone { get; set; } = default!;
 		public bool HorsTravaux { get; set; }
