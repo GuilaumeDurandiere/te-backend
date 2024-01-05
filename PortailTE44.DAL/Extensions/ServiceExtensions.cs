@@ -34,7 +34,6 @@ namespace PortailTE44.DAL.Extensions
             services.AddScoped<IWorkflowRepository, WorkflowRepository>();
             services.AddScoped<IEtapeRepository, EtapeRepository>();
             services.AddScoped<IThemeRepository, ThemeRepository>();
-            services.AddScoped<ISousThemeRepository, SousThemeRepository>();
         }
     }
 }
