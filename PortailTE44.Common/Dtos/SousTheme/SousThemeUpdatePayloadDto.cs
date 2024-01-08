@@ -1,5 +1,4 @@
-﻿using System;
-namespace PortailTE44.Common.Dtos.SousTheme
+﻿namespace PortailTE44.Common.Dtos.SousTheme
 {
 	public class SousThemeUpdatePayloadDto : SousThemeBaseDto
 	{
