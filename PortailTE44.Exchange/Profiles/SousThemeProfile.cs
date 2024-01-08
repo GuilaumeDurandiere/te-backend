@@ -11,6 +11,7 @@ namespace PortailTE44.Exchange.Profiles
 			CreateMap<SousThemeCreatePayloadDto, SousTheme>();
 			CreateMap<SousThemeUpdatePayloadDto, SousTheme>();
 			CreateMap<SousTheme, SousThemeResponseDto>();
+			CreateMap<SousThemeCreateOrUpdatePayloadDto, SousTheme>();
 		}
 	}
 }
