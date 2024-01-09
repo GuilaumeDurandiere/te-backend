@@ -80,5 +80,19 @@ namespace PortailTE44.Business.Services
             _repository.Delete(workflow);
             await _repository.SaveAsync();
         }
+
+        public async Task<WorkflowResponseDto> Duplicate(int id)
+        {
+            Workflow? originalWorkflow = await _repository.GetByIdAsync(id);
+            if(originalWorkflow is null)
+            {
+                throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
+            }
+            WorkflowDuplicatePayloadDto workflow = _mapper.Map<Workflow, WorkflowDuplicatePayloadDto>(originalWorkflow);
+            Workflow duplicateWorkflow = _mapper.Map<WorkflowDuplicatePayloadDto, Workflow>(workflow);
+            _repository.Add(duplicateWorkflow);
+            await _repository.SaveAsync();
+            return _mapper.Map<Workflow, WorkflowResponseDto>(duplicateWorkflow);
+        }
     }
 }

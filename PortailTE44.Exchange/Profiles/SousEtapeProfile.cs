@@ -11,6 +11,8 @@ namespace PortailTE44.Exchange.Profiles
             CreateMap<SousEtapeCreatePayloadDto, SousEtape>();
             CreateMap<SousEtape, SousEtapeResponseDto>();
             CreateMap<SousEtapeCreateOrUpdatePayloadDto, SousEtape>();
+            CreateMap<SousEtapeDuplicatePayloadDto, SousEtape>();
+            CreateMap<SousEtape, SousEtapeDuplicatePayloadDto>();
         }
     }
 }
