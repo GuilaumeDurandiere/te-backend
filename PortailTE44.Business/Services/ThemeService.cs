@@ -13,54 +13,26 @@ namespace PortailTE44.Business.Services
         {
         }
 
-        //NICH upload image
-        //public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
-        //{
-        //    Theme theme = _mapper.Map<ThemeCreatePayloadDto, Theme>(dto);
-        //    _repository.Add(theme);
-        //    await _repository.SaveAsync();
-        //    return _mapper.Map<Theme, ThemeResponseDto>(theme);
-        //}
         public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
-        {
-            //NICH TEST icone
-            //NICH => mettre dans une class static
-            //string? iconeB64 = null;
-            byte[]? nich = null;
-            if (dto.IconeFile != null && dto.IconeFile.Length > 0)
-            {
-                //string? s;
-                byte[]? fileBytes;
-                using (var ms = new MemoryStream())
-                {
-                    dto.IconeFile.CopyTo(ms);
-                    fileBytes = ms.ToArray();
-                    //s = Convert.ToBase64String(fileBytes);
-                }
-                //iconeB64 = s;
-                nich = fileBytes;
-            }
-
+        {//NICH TODO : check le type et la taille des fichiers
             Theme theme = _mapper.Map<ThemeCreatePayloadDto, Theme>(dto);
-            //NICH
-            //theme.Icone = iconeB64;
-            theme.Icone = nich;
             _repository.Add(theme);
             await _repository.SaveAsync();
             return _mapper.Map<Theme, ThemeResponseDto>(theme);
         }
 
-        public async Task<ThemeResponseDto> Update(ThemeUpdatePayloadDto dto)
-        {
+        public async Task<ThemeLightResponseDto> Update(ThemeUpdatePayloadDto dto)
+        {//NICH TODO : check le type et la taille des fichiers
             Theme? theme = await _repository.GetByIdAsync(dto.Id);
             if (theme is null)
                 throw new KeyNotFoundException($"Le theme avec l'id {dto.Id} n'existe pas");
 
             theme.Libelle = dto.Libelle;
             theme.Description = dto.Description;
+            theme.Icone = ConvertHelper.Base64ToBytes(dto.Icone);
             _repository.Update(theme);
             await _repository.SaveAsync();
-            return _mapper.Map<Theme, ThemeResponseDto>(theme);
+            return _mapper.Map<Theme, ThemeLightResponseDto>(theme);
         }
 
         public async Task<ThemeResponseDto> GetById(int id)

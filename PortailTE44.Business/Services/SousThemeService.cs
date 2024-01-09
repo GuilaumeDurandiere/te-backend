@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.SousTheme;
+using PortailTE44.Common.Utils;
 using PortailTE44.DAL.Entities;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -14,9 +15,9 @@ namespace PortailTE44.Business.Services
             _sousThemeRepository = sousThemeRepository;
         }
 
-        public async Task<SousThemeResponseDto> Create(SousThemeCreatePayloadDto dto)
+        public async Task<SousThemeResponseDto> Create(SousThemeCreateOrUpdatePayloadDto dto)
         {
-            SousTheme sousTheme = _mapper.Map<SousThemeCreatePayloadDto, SousTheme>(dto);
+            SousTheme sousTheme = _mapper.Map<SousThemeCreateOrUpdatePayloadDto, SousTheme>(dto);
             _repository.Add(sousTheme);
             await _repository.SaveAsync();
             return _mapper.Map<SousTheme, SousThemeResponseDto>(sousTheme);
@@ -36,7 +37,7 @@ namespace PortailTE44.Business.Services
             sousTheme.AccessibleATous = dto.AccessibleATous;
             sousTheme.HorsTravaux = dto.HorsTravaux;
             sousTheme.Couleur = dto.Couleur;
-            sousTheme.Icone = dto.Icone;
+            sousTheme.Icone = ConvertHelper.Base64ToBytes(dto.Icone);
             sousTheme.WorkflowTravauxSimplifie = dto.WorkflowTravauxSimplifie.HasValue && dto.WorkflowTravauxSimplifie.Value;
             sousTheme.WorkflowId = dto.WorkflowId;
             _repository.Update(sousTheme);
@@ -63,7 +64,6 @@ namespace PortailTE44.Business.Services
             await _repository.SaveAsync();
         }
 
-        //TEST NICH
         public async Task<IEnumerable<SousThemeOffreResponseDto>> GetByThemeId(int id)
         {
             IEnumerable<SousTheme> sousThemes = await _sousThemeRepository.GetByThemeId(id);

@@ -4,7 +4,8 @@
     {
         FORMULAIRE_SIMPLIFIE,
         LIEN_EXTERNE,
-        OFFRE_NON_SOUSCRITE,
+        //NICH virer de l'enum
+        //OFFRE_NON_SOUSCRITE,
         DEMANDE_HORS_TRAVAUX,
         DEMANDE_TRAVAUX
     }

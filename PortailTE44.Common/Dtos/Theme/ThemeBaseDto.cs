@@ -4,7 +4,6 @@
 	{
         public string Libelle { get; set; } = default!;
         public string? Description { get; set; }
-        //NICH image
         public string? Icone { get; set; }
     }
 }

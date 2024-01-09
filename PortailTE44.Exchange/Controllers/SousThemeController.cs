@@ -25,7 +25,7 @@ namespace PortailTE44.Exchange.Controllers
 
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status201Created)]
-		public async Task<SousThemeResponseDto> Create([FromBody] SousThemeCreatePayloadDto dto)
+		public async Task<SousThemeResponseDto> Create([FromBody] SousThemeCreateOrUpdatePayloadDto dto)
 		{
             SousThemeResponseDto result = await _sousThemeService.Create(dto);
             return await _sousThemeService.GetById(result.Id);

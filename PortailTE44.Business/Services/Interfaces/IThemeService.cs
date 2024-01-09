@@ -7,7 +7,7 @@ namespace PortailTE44.Business.Services.Interfaces
     public interface IThemeService : IGenericService<Theme>
 	{
 		Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto);
-		Task<ThemeResponseDto> Update(ThemeUpdatePayloadDto dto);
+		Task<ThemeLightResponseDto> Update(ThemeUpdatePayloadDto dto);
 		Task<ThemeResponseDto> GetById(int id);
 		Task Delete(int id);
 		Task<IEnumerable<ThemeLightResponseDto>> GetAll();

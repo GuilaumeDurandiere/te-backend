@@ -17,7 +17,7 @@ namespace PortailTE44.DAL.Migrations
                 .WithColumn("AccessibleATous").AsBoolean().NotNullable()
                 .WithColumn("HorsTravaux").AsBoolean().NotNullable()
                 .WithColumn("Couleur").AsString().NotNullable()
-                .WithColumn("Icone").AsString().Nullable()
+                .WithColumn("Icone").AsBinary(int.MaxValue).Nullable()
                 .WithColumn("WorkflowTravauxSimplifie").AsBoolean().NotNullable()
                 .WithColumn("ThemeId").AsInt32().NotNullable().ForeignKey("Theme", "Id")
                 .WithColumn("WorkflowId").AsInt32().NotNullable().ForeignKey("Workflow", "Id");
