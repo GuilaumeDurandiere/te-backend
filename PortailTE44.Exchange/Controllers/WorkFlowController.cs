@@ -47,6 +47,12 @@ namespace PortailTE44.Exchange.Controllers
             return await _workflowService.Create(dto);
         }
 
+        [HttpPost("duplicate")]
+        public async Task<WorkflowResponseDto> Duplicate(int id)
+        {
+            return await _workflowService.Duplicate(id);
+        }
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<WorkflowResponseDto> Update([FromBody] WorkflowUpdatePayloadDto dto)
