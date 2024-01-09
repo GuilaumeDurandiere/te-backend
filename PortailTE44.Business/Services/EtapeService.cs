@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Dtos.Etape;
+using PortailTE44.Common.Dtos.SousEtapes;
 using PortailTE44.DAL.Entities;
 using PortailTE44.DAL.Repositories.Interfaces;
 
@@ -38,6 +39,10 @@ namespace PortailTE44.Business.Services
             etape.Libelle = dto.Libelle;
             etape.Description = dto.Description;
             etape.Statut = dto.Statut;
+            foreach(SousEtapeCreateOrUpdatePayloadDto sousEtape in dto.SousEtapes!)
+            {
+                await _sousEtapeService.Update(_mapper.Map<SousEtapeCreateOrUpdatePayloadDto, SousEtapeUpdatePayloadDto>(sousEtape));
+            }
             _repository.Update(etape);
             await _repository.SaveAsync();
             return _mapper.Map<Etape, EtapeResponseDto>(etape);
