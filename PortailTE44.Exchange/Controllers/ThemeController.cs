@@ -18,7 +18,7 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<ThemeResponseDto>> GetAll()
+        public async Task<IEnumerable<ThemeLightResponseDto>> GetAll()
         {
             return await _themeService.GetAll();
         }
@@ -37,10 +37,30 @@ namespace PortailTE44.Exchange.Controllers
             return await _themeService.GetById(id);
         }
 
+        //NICH TEST image
+        //[HttpPost]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //public async Task<ThemeResponseDto> Create([FromBody] ThemeCreatePayloadDto dto)
+        //{
+        //    return await _themeService.Create(dto);
+        //}
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ThemeResponseDto> Create([FromBody] ThemeCreatePayloadDto dto)
+        //public async Task<ThemeResponseDto> Create([FromForm] IFormFile file, [FromBody] ThemeCreatePayloadDto dto)
+        //public async Task<ThemeResponseDto> Create([FromBody] ThemeCreatePayloadDto dto)
+        public async Task<ThemeResponseDto> Create([FromForm] ThemeCreatePayloadDto dto)
         {
+            //var rrrt = Convert.ToBase64String(dto.file);
+            //if (dto.file != null && dto.file.Length > 0)
+            //{
+            //    using (var ms = new MemoryStream())
+            //    {
+            //        dto.file.CopyTo(ms);
+            //        var fileBytes = ms.ToArray();
+            //        string s = Convert.ToBase64String(fileBytes);
+            //        // act on the Base64 data
+            //    }
+            //}
             return await _themeService.Create(dto);
         }
 

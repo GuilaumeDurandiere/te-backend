@@ -19,9 +19,8 @@ namespace PortailTE44.Business.Services
         public async Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto)
         {
             if (dto.Etapes is null || !dto.Etapes.Any())
-            {
                 throw new ArgumentException("Un workflow doit posséder au moins une étape");
-            }
+
             Workflow workflow = _mapper.Map<WorkflowCreatePayloadDto, Workflow>(dto);
             workflow.Actif = true;
             _repository.Add(workflow);
@@ -33,9 +32,8 @@ namespace PortailTE44.Business.Services
         {
             Workflow? workflow = await _repository.GetByIdAsync(id);
             if (workflow is null)
-            {
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
-            }
+
             return _mapper.Map<Workflow, WorkflowResponseDto>(workflow);
         }
 
@@ -64,9 +62,8 @@ namespace PortailTE44.Business.Services
         {
             Workflow? workflow = await _repository.GetByIdAsync(dto.Id);
             if (workflow is null)
-            {
                 throw new KeyNotFoundException($"Le workflow avec l'id {dto.Id} n'existe pas");
-            }
+
             workflow.Libelle = dto.Libelle;
             workflow.Actif = dto.Actif;
             _repository.Update(workflow);
@@ -77,10 +74,9 @@ namespace PortailTE44.Business.Services
         public async Task Delete(int id)
         {
             Workflow? workflow = await _repository.GetByIdAsync(id);
-            if (workflow is null)
-            { 
+            if (workflow is null) 
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
-            }
+
             _repository.Delete(workflow);
             await _repository.SaveAsync();
         }

@@ -33,9 +33,8 @@ namespace PortailTE44.Business.Services
         {
             Etape? etape = await _repository.GetByIdAsync(dto.Id);
             if (etape is null)
-            {
                 throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {dto.Id}");
-            }
+
             etape.Libelle = dto.Libelle;
             etape.Description = dto.Description;
             etape.Statut = dto.Statut;
@@ -48,9 +47,8 @@ namespace PortailTE44.Business.Services
         {
             Etape? etape = await _repository.GetByIdAsync(id);
             if (etape is null)
-            {
                 throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
-            }
+
             return _mapper.Map<Etape, EtapeResponseDto>(etape);
         }
 
@@ -58,14 +56,12 @@ namespace PortailTE44.Business.Services
         {
             Etape? etape = await _repository.GetByIdAsync(id);
             if (etape is null)
-            {
                 throw new KeyNotFoundException($"Aucune étape trouvée avec l'id {id}");
-            }
+
             IEnumerable<Etape> workflowEtapes = await _etapeRepository.GetByWorkflowId(etape.WorkflowId);
             if (workflowEtapes.Count() == 1)
-            {
                 throw new ArgumentException("Impossible de supprimer l'étape car un workflow doit posséder au moins une étape");
-            }
+
             foreach(SousEtape sousEtape in etape.SousEtapes!) {
                 await _sousEtapeService.Delete(sousEtape.Id);
             }

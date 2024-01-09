@@ -12,10 +12,18 @@ namespace PortailTE44.DAL.Repositories
         {
         }
 
+        public override async Task<SousTheme?> GetByIdAsync(int id)
+        {
+            return await Context.SousThemes
+                                .Include(st => st.Workflow)
+                                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
         public async Task<IEnumerable<SousTheme>> GetByThemeId(int id)
         {
             return await Context.SousThemes
                                 .Where(st => st.ThemeId == id)
+                                .Include(st => st.SousThemeCollectivites)
                                 .ToListAsync();
         }
     }

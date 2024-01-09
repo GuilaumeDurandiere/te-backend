@@ -11,7 +11,8 @@ namespace PortailTE44.DAL.Migrations
                .WithColumn("Id").AsInt32().NotNullable().Identity().PrimaryKey()
                .WithColumn("Libelle").AsString().NotNullable()
                .WithColumn("Description").AsString().Nullable()
-               .WithColumn("Icone").AsString().Nullable();
+               //NICH TEST
+               .WithColumn("Icone").AsBinary().Nullable();
         }
 
         public override void Down()

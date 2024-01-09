@@ -10,8 +10,9 @@ namespace PortailTE44.Exchange.Profiles
 		{
 			CreateMap<ThemeCreatePayloadDto, Theme>();
 			CreateMap<ThemeUpdatePayloadDto, Theme>();
-			CreateMap<Theme, ThemeResponseDto>();
-		}
-	}
+			CreateMap<Theme, ThemeLightResponseDto>();
+            CreateMap<Theme, ThemeResponseDto>();
+        }
+    }
 }
 

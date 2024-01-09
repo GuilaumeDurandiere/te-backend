@@ -27,15 +27,17 @@ namespace PortailTE44.Exchange.Controllers
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		public async Task<SousThemeResponseDto> Create([FromBody] SousThemeCreatePayloadDto dto)
 		{
-			return await _sousThemeService.Create(dto);
-		}
+            SousThemeResponseDto result = await _sousThemeService.Create(dto);
+            return await _sousThemeService.GetById(result.Id);
+        }
 
 		[HttpPut]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public async Task<SousThemeResponseDto> Update([FromBody] SousThemeUpdatePayloadDto dto)
 		{
-			return await _sousThemeService.Update(dto);
-		}
+			await _sousThemeService.Update(dto);
+            return await _sousThemeService.GetById(dto.Id);
+        }
 
 		[HttpDelete("{id}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -45,7 +47,7 @@ namespace PortailTE44.Exchange.Controllers
 		}
 
         [HttpGet("getByTheme/{id}")]
-        public async Task<IEnumerable<SousThemeResponseDto>> GetOne([FromRoute] int id)
+        public async Task<IEnumerable<SousThemeOffreResponseDto>> GetOne([FromRoute] int id)
 		{
 			return await _sousThemeService.GetByThemeId(id);
 		}

@@ -13,9 +13,38 @@ namespace PortailTE44.Business.Services
         {
         }
 
+        //NICH upload image
+        //public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
+        //{
+        //    Theme theme = _mapper.Map<ThemeCreatePayloadDto, Theme>(dto);
+        //    _repository.Add(theme);
+        //    await _repository.SaveAsync();
+        //    return _mapper.Map<Theme, ThemeResponseDto>(theme);
+        //}
         public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
         {
+            //NICH TEST icone
+            //NICH => mettre dans une class static
+            //string? iconeB64 = null;
+            byte[]? nich = null;
+            if (dto.IconeFile != null && dto.IconeFile.Length > 0)
+            {
+                //string? s;
+                byte[]? fileBytes;
+                using (var ms = new MemoryStream())
+                {
+                    dto.IconeFile.CopyTo(ms);
+                    fileBytes = ms.ToArray();
+                    //s = Convert.ToBase64String(fileBytes);
+                }
+                //iconeB64 = s;
+                nich = fileBytes;
+            }
+
             Theme theme = _mapper.Map<ThemeCreatePayloadDto, Theme>(dto);
+            //NICH
+            //theme.Icone = iconeB64;
+            theme.Icone = nich;
             _repository.Add(theme);
             await _repository.SaveAsync();
             return _mapper.Map<Theme, ThemeResponseDto>(theme);
@@ -24,10 +53,9 @@ namespace PortailTE44.Business.Services
         public async Task<ThemeResponseDto> Update(ThemeUpdatePayloadDto dto)
         {
             Theme? theme = await _repository.GetByIdAsync(dto.Id);
-            if(theme is null)
-            {
+            if (theme is null)
                 throw new KeyNotFoundException($"Le theme avec l'id {dto.Id} n'existe pas");
-            }
+
             theme.Libelle = dto.Libelle;
             theme.Description = dto.Description;
             _repository.Update(theme);
@@ -38,28 +66,26 @@ namespace PortailTE44.Business.Services
         public async Task<ThemeResponseDto> GetById(int id)
         {
             Theme? theme = await _repository.GetByIdAsync(id);
-            if(theme is null)
-            {
+            if (theme is null)
                 throw new KeyNotFoundException($"Le theme avec l'id {id} n'existe pas");
-            }
+
             return _mapper.Map<Theme, ThemeResponseDto>(theme);
         }
 
         public async Task Delete(int id)
         {
             Theme? theme = await _repository.GetByIdAsync(id);
-            if(theme is null)
-            {
+            if (theme is null)
                 throw new KeyNotFoundException($"Le theme avec l'id {id} n'existe pas");
-            }
+
             _repository.Delete(theme);
-            await _repository.SaveAsync(); 
+            await _repository.SaveAsync();
         }
 
-        public async Task<IEnumerable<ThemeResponseDto>> GetAll()
+        public async Task<IEnumerable<ThemeLightResponseDto>> GetAll()
         {
             IEnumerable<Theme> themes = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeResponseDto>>(themes);
+            return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeLightResponseDto>>(themes);
         }
 
         public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page)

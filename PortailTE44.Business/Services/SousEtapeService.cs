@@ -26,9 +26,8 @@ namespace PortailTE44.Business.Services
         {
             SousEtape? sousEtape = await _repository.GetByIdAsync(id);
             if (sousEtape is null)
-            {
                 throw new KeyNotFoundException($"Aucune étape avec l'id {id} n'a été retrouvé");
-            }
+
             return _mapper.Map <SousEtape, SousEtapeResponseDto>(sousEtape);
         }
 
@@ -36,9 +35,8 @@ namespace PortailTE44.Business.Services
         {
             SousEtape? sousEtape = await _repository.GetByIdAsync(dto.Id);
             if (sousEtape is null)
-            {
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {dto.Id}");
-            }
+
             sousEtape.Description = dto.Description;
             sousEtape.Libelle = dto.Libelle;
             _repository.Update(sousEtape);
@@ -50,9 +48,8 @@ namespace PortailTE44.Business.Services
         {
             SousEtape? sousEtape = await _repository.GetByIdAsync(id);
             if (sousEtape is null)
-            {
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {id}");
-            }
+
             _repository.Delete(sousEtape);
         }
     }
