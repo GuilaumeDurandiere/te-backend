@@ -12,5 +12,6 @@ namespace PortailTE44.Business.Services.Interfaces
         Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto);
         Task Delete(int id);
         PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page);
+        Task<WorkflowResponseDto> Duplicate(int id);
     }
 }

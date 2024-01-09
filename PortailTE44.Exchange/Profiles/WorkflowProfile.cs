@@ -12,6 +12,8 @@ namespace PortailTE44.Exchange.Profiles
             CreateMap<Workflow, WorkflowResponseDto>();
             CreateMap<Workflow, WorkflowItemResponseDto>();
             CreateMap<Workflow, WorkflowPaginatedResponseDto>();
+            CreateMap<Workflow, WorkflowDuplicatePayloadDto>();
+            CreateMap<WorkflowDuplicatePayloadDto, Workflow>();
         }
     }
 }
