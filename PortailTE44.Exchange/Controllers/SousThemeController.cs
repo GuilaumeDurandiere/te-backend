@@ -47,7 +47,9 @@ namespace PortailTE44.Exchange.Controllers
 		}
 
         [HttpGet("getByTheme/{id}")]
-        public async Task<IEnumerable<SousThemeOffreResponseDto>> GetOne([FromRoute] int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IEnumerable<SousThemeOffreResponseDto>> GetByTheme([FromRoute] int id)
 		{
 			return await _sousThemeService.GetByThemeId(id);
 		}

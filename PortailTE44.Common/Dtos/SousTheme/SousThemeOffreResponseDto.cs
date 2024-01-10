@@ -1,4 +1,6 @@
-﻿namespace PortailTE44.Common.Dtos.SousTheme
+﻿using PortailTE44.Common.Dtos.RefTypeOffre;
+
+namespace PortailTE44.Common.Dtos.SousTheme
 {
     public class SousThemeOffreResponseDto
     {
@@ -7,6 +9,7 @@
         public string Description { get; set; } = default!;
         public string Couleur { get; set; } = default!;
         public string? Icone { get; set; }
-        public string TypeOffre { get; set; } = default!;
+        public bool Accessible { get; set; }
+        public RefTypeOffreDto RefTypeOffre { get; set; } = default!;
     }
 }
