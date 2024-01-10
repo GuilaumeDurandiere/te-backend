@@ -4,6 +4,7 @@
 	{
 		public int Id { get; set; }
         public int WorkflowId { get; set; }
+        public int RefTypeOffreId { get; set; }
     }
 }
 

@@ -33,13 +33,12 @@ namespace PortailTE44.Business.Services
             sousTheme.Description = dto.Description;
             sousTheme.LienExterne = dto.LienExterne;
             sousTheme.MailReferent = dto.MailReferent;
-            sousTheme.DemandeSimple = dto.DemandeSimple;
             sousTheme.AccessibleATous = dto.AccessibleATous;
-            sousTheme.HorsTravaux = dto.HorsTravaux;
             sousTheme.Couleur = dto.Couleur;
             sousTheme.Icone = ConvertHelper.Base64ToBytes(dto.Icone);
             sousTheme.WorkflowTravauxSimplifie = dto.WorkflowTravauxSimplifie.HasValue && dto.WorkflowTravauxSimplifie.Value;
             sousTheme.WorkflowId = dto.WorkflowId;
+            sousTheme.RefTypeOffreId = dto.RefTypeOffreId;
             _repository.Update(sousTheme);
             await _repository.SaveAsync();
             return _mapper.Map<SousTheme, SousThemeResponseDto>(sousTheme);

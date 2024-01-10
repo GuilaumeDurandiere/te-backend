@@ -14,7 +14,7 @@ namespace PortailTE44.Business.Services
         }
 
         public async Task<ThemeResponseDto> Create(ThemeCreatePayloadDto dto)
-        {//NICH TODO : check le type et la taille des fichiers
+        {
             Theme theme = _mapper.Map<ThemeCreatePayloadDto, Theme>(dto);
             _repository.Add(theme);
             await _repository.SaveAsync();
@@ -22,7 +22,7 @@ namespace PortailTE44.Business.Services
         }
 
         public async Task<ThemeLightResponseDto> Update(ThemeUpdatePayloadDto dto)
-        {//NICH TODO : check le type et la taille des fichiers
+        {
             Theme? theme = await _repository.GetByIdAsync(dto.Id);
             if (theme is null)
                 throw new KeyNotFoundException($"Le theme avec l'id {dto.Id} n'existe pas");

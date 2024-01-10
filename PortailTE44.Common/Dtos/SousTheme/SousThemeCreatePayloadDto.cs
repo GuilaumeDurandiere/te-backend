@@ -3,6 +3,7 @@
     public class SousThemeCreatePayloadDto : SousThemeBaseDto
 	{
 		public int WorkflowId { get; set; }
+        public int RefTypeOffreId { get; set; }
     }
 }
 
