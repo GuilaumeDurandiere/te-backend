@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PortailTE44.Business.Services.Interfaces;
-using PortailTE44.Common.Dtos.Etape;
 using PortailTE44.Common.Dtos.Workflow;
 using PortailTE44.Common.Utils;
 using PortailTE44.DAL.Entities;
@@ -11,14 +10,11 @@ namespace PortailTE44.Business.Services
 {
     public class WorkflowService : GenericService<Workflow>, IWorkflowService
     {
-        IEtapeService _etapeService;
 
         public WorkflowService(
             IWorkflowRepository repository,
-            IMapper mapper,
-            IEtapeService etapeService
+            IMapper mapper
         ) : base(repository, mapper) {
-            _etapeService = etapeService;
         }
 
         public async Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto)
@@ -72,10 +68,6 @@ namespace PortailTE44.Business.Services
             workflow.Libelle = dto.Libelle;
             workflow.Actif = dto.Actif;
             _repository.Update(workflow);
-            foreach(EtapeUpdatePayloadDto etape in dto.Etapes)
-            {
-               await _etapeService.Update(etape);
-            }
             await _repository.SaveAsync();
             return _mapper.Map<Workflow, WorkflowResponseDto>(workflow);
         }
