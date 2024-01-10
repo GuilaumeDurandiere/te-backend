@@ -10,7 +10,6 @@ namespace PortailTE44.Business.Services
 {
     public class WorkflowService : GenericService<Workflow>, IWorkflowService
     {
-
         public WorkflowService(
             IWorkflowRepository repository,
             IMapper mapper
