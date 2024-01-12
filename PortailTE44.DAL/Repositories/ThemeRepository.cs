@@ -14,6 +14,9 @@ namespace PortailTE44.DAL.Repositories
         {
             return await Context.Themes
                                 .Include(t => t.SousThemes)
+                                    .ThenInclude(st => st.Workflow)
+                                .Include(t => t.SousThemes)
+                                    .ThenInclude(st => st.RefTypeOffre)
                                 .FirstOrDefaultAsync(t => t.Id == id);
         }
     }
