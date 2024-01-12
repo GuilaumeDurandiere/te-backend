@@ -13,11 +13,15 @@ namespace PortailTE44.Business.Services
         public WorkflowService(
             IWorkflowRepository repository,
             IMapper mapper
-        ) : base(repository, mapper) {
+        ) : base(repository, mapper)
+        {
         }
 
         public async Task<WorkflowResponseDto> Create(WorkflowCreatePayloadDto dto)
         {
+            if (NameAlreadyExists(dto.Libelle))
+                throw new ArgumentException("WORKFLOW_NAME_ALREADY_EXISTS");
+
             if (dto.Etapes is null || !dto.Etapes.Any())
                 throw new ArgumentException("Un workflow doit posséder au moins une étape");
 
@@ -64,6 +68,9 @@ namespace PortailTE44.Business.Services
             if (workflow is null)
                 throw new KeyNotFoundException($"Le workflow avec l'id {dto.Id} n'existe pas");
 
+            if (NameAlreadyExists(dto.Libelle))
+                throw new ArgumentException("WORKFLOW_NAME_ALREADY_EXISTS");
+
             workflow.Libelle = dto.Libelle;
             workflow.Actif = dto.Actif;
             _repository.Update(workflow);
@@ -74,25 +81,35 @@ namespace PortailTE44.Business.Services
         public async Task Delete(int id)
         {
             Workflow? workflow = await _repository.GetByIdAsync(id);
-            if (workflow is null) 
+            if (workflow is null)
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
 
             _repository.Delete(workflow);
             await _repository.SaveAsync();
         }
 
-        public async Task<WorkflowResponseDto> Duplicate(int id)
+        public async Task<WorkflowResponseDto> Duplicate(int id, string libelle)
         {
             Workflow? originalWorkflow = await _repository.GetByIdAsync(id);
-            if(originalWorkflow is null)
-            {
+            if (originalWorkflow is null)
                 throw new KeyNotFoundException($"Le workflow avec l'id {id} n'existe pas");
-            }
+
+            if (NameAlreadyExists(libelle))
+                throw new ArgumentException("WORKFLOW_NAME_ALREADY_EXISTS");
+
             WorkflowDuplicatePayloadDto workflow = _mapper.Map<Workflow, WorkflowDuplicatePayloadDto>(originalWorkflow);
             Workflow duplicateWorkflow = _mapper.Map<WorkflowDuplicatePayloadDto, Workflow>(workflow);
+            duplicateWorkflow.Libelle = libelle;
+            duplicateWorkflow.Actif = originalWorkflow.Actif;
             _repository.Add(duplicateWorkflow);
             await _repository.SaveAsync();
             return _mapper.Map<Workflow, WorkflowResponseDto>(duplicateWorkflow);
+        }
+
+        private bool NameAlreadyExists(string name)
+        {
+            return _repository.GetAll()
+                              .Any(wf => wf.Libelle == name);
         }
     }
 }

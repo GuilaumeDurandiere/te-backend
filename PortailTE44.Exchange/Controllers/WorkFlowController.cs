@@ -48,9 +48,9 @@ namespace PortailTE44.Exchange.Controllers
         }
 
         [HttpPost("duplicate")]
-        public async Task<WorkflowResponseDto> Duplicate(int id)
+        public async Task<WorkflowResponseDto> Duplicate(int id, string libelle)
         {
-            return await _workflowService.Duplicate(id);
+            return await _workflowService.Duplicate(id, libelle);
         }
 
         [HttpPut]
