@@ -1,6 +1,6 @@
 ﻿namespace PortailTE44.Common.Dtos.Demande
 {
-	public class DemandeFormulaireSimplifieResponsableDto
+	public class FormulaireSimplifieResponsableDto
 	{
 		public string Message { get; set; } = default!;
 		public string Telephone { get; set; } = default!;

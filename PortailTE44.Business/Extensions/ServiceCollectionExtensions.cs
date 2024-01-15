@@ -15,6 +15,7 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<IThemeService, ThemeService>();
             services.AddScoped<ISousThemeService, SousThemeService>();
             services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IFormulaireSimplifieService, FormulaireSimplifieService>();
         }
     }
 }

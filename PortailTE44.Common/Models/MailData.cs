@@ -20,6 +20,11 @@
 
         public string? Body { get; set; }
 
+        public MailData()
+        {
+
+        }
+
         public MailData(List<string> to,
             string subject,
             string? body = null,
