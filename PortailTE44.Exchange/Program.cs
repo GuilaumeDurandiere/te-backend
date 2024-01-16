@@ -6,6 +6,7 @@ using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
+using PortailTE44.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.ConfigureRepositories();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.Configure<MailTemplates>(builder.Configuration.GetSection(nameof(MailTemplates)));
 
 var app = builder.Build();
 

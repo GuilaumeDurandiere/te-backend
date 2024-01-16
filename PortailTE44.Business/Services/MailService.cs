@@ -82,7 +82,6 @@ namespace PortailTE44.Business.Services
             }
         }
 
-
     }
 }
 
