@@ -16,9 +16,9 @@ namespace PortailTE44.Exchange.Controllers
 		}
 
 		[HttpPost("responsable")]
-		public async Task<bool> FormulaireSimplifieResponsable([FromBody] FormulaireSimplifieResponsableDto demandeFormulaireSimplifieResponsableDto)
+		public async Task<bool> FormulaireSimplifieResponsable([FromBody] FormulaireSimplifieResponsablePayloadDto dto)
 		{
-			return await _formulaireSimplifieService.FormulaireSimplifieResponsable(demandeFormulaireSimplifieResponsableDto);
+			return await _formulaireSimplifieService.FormulaireSimplifieResponsable(dto);
 		}
 	}
 }

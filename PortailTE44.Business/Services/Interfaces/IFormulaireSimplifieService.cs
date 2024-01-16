@@ -4,7 +4,7 @@ namespace PortailTE44.Business.Services.Interfaces
 {
 	public interface IFormulaireSimplifieService
 	{
-		Task<bool> FormulaireSimplifieResponsable(FormulaireSimplifieResponsableDto dto);
+		Task<bool> FormulaireSimplifieResponsable(FormulaireSimplifieResponsablePayloadDto dto);
 	}
 }
 
