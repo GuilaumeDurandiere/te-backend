@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PortailTE44.Business.Services;
 using PortailTE44.Business.Services.Interfaces;
+using PortailTE44.Common.Utils;
 
 namespace PortailTE44.Business.Extensions
 {
@@ -16,6 +17,8 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<ISousThemeService, SousThemeService>();
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<IFormulaireSimplifieService, FormulaireSimplifieService>();
+            services.AddScoped<ITestApiEudonetService, TestApiEudonetService>();
+            services.AddScoped<EudoAPI, EudoAPI>();
         }
     }
 }
