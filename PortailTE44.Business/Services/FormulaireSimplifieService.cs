@@ -43,7 +43,7 @@ namespace PortailTE44.Business.Services
             string template = File.ReadAllText(formulaireSimplifieResponsableTemplate.Path);
             string mail = string.Format(template, _mailSettings.Value.DisplayName, DateTime.Now, 1, sousTheme.Theme.Libelle, sousTheme.Libelle, "Origine", "Demandeur", dto.Telephone, dto.Message, "Signature");
             data.Subject = formulaireSimplifieResponsableTemplate.Subject;
-            data.To = new List<string>() { sousTheme.MailReferent };
+            data.To = new List<string>() { sousTheme.MailReferent! };
             data.Body = mail;
             return data;
         }
