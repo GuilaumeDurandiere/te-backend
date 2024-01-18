@@ -51,6 +51,7 @@ namespace PortailTE44.Business.Services
                 throw new KeyNotFoundException($"Il n'existe aucune sous étape avec l'id {id}");
 
             _repository.Delete(sousEtape);
+            await _repository.SaveAsync();
         }
     }
 }
