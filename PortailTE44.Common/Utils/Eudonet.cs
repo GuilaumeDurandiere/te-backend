@@ -388,7 +388,7 @@ namespace PortailTE44.Common.Utils
 
         }
 
-        public static EudoAPI_Rootobject? QueryByCustoms(int tableDescId, int[] fieldDescId, int[] whereFieldsDescIds, string[] whereFieldsValues)
+        public static EudoAPI_Rootobject? QueryByCustoms(int tableDescId, int[] fieldDescId, int[] whereFieldsDescIds, string[] whereFieldsValues, int numPage = 0)
         {
             if (whereFieldsDescIds.Length != whereFieldsValues.Length) return null;
             if (whereFieldsDescIds.Length == 0) return null;
@@ -397,8 +397,9 @@ namespace PortailTE44.Common.Utils
 
             EudoAPI_Rootrequest request = new EudoAPI_Rootrequest();
             request.ShowMetadata = true;
-            request.RowsPerPage = 10;
+            request.RowsPerPage = 50;
             request.ListCols = fieldDescId;
+            request.NumPage = numPage;
             request.WhereCustom = new EudoAPI_Wherecustom();
             request.WhereCustom.Criteria = null;
             for (int i = 0; i < whereFieldsDescIds.Length; i++)
@@ -433,7 +434,6 @@ namespace PortailTE44.Common.Utils
                 if (reqResult != null) return reqResult;
             }
             return null;
-
         }
 
         public static EudoAPI_Rootobject? GetFile(int tableDescId, string fileId)

@@ -1,4 +1,5 @@
 ﻿using PortailTE44.Business.Services.Interfaces;
+using PortailTE44.Common.Dtos;
 using PortailTE44.Common.Utils;
 
 namespace PortailTE44.Business.Services
@@ -13,66 +14,85 @@ namespace PortailTE44.Business.Services
 
         public bool GetTest()
         {
-            _eudoAPI.Connect();
-            string result = GetWorkManagerMailFromWorkId("123");
+            bool succes = _eudoAPI.Connect();
+            if (!succes) return false;
+            GetCollectivites();
             _eudoAPI.Disconnect();
             return true;
         }
 
-        public static string GetWorkManagerMailFromWorkId(string workId)
+        public void GetCollectivites()
         {
-            if (workId == null) return string.Empty;
-            if (workId == string.Empty) return string.Empty;
+            List<CollectiviteTestDto> collectiviteDtos = new List<CollectiviteTestDto>();
+            // ----------------------------------------------------------------------------------
+            // Liste des Communautés de commune
+            // ----------------------------------------------------------------------------------
+            // Table Entité (300)
+            // Type (313) = "2132" (Public)
+            // Sous-Catégorie (323) = "2180" (Communautés de communes)
+            List<EudoAPI_Row> communauteRows = new List<EudoAPI_Row>();
+            EudoAPI_Rootobject? entities_ComCom = EudoAPI.QueryByCustoms(300, new int[] { 301, 313, 323 },
+                new int[] { 313, 323 }, new string[] { "2132", "2180" });
 
-            // First query the "affaires" table to retrive the work manager "FileId" (=primary key of the "contacts" table)
-            // 1300 : DescId of the "affaires" table
-            // 1318 : DescId of the "work manager" field
-            // 1303 : DescId of the "Work number" field (the 'where')
-            EudoAPI_Rootobject? ro_work = EudoAPI.QueryByCriteria(1300, new int[] { 1318 }, 1303, workId);
-            // Ensure the next operation
-#pragma warning disable CS8602
-            if (ro_work == null) return string.Empty;
-            if (ro_work.ResultData == null) return string.Empty;
-            if (ro_work.ResultData.Rows == null) return string.Empty;
-            if (ro_work.ResultData.Rows.Length != 0)
-                if (ro_work.ResultData.Rows[0].Fields == null) return string.Empty;
-            if (ro_work.ResultData.Rows[0].Fields.Length == 0) return string.Empty;
-            if (ro_work.ResultData.Rows[0].Fields[0].DbValue == null) return string.Empty;
-            string contactFileId = ro_work.ResultData.Rows[0].Fields[0].DbValue;
-#pragma warning restore CS8602
+            if (entities_ComCom?.ResultData?.Rows is not null)
+            {
+                communauteRows.AddRange(entities_ComCom.ResultData.Rows);
+                // Boucler sur les lignes de résultat de la page 1 ici
+                int pageCountCommunCommune = entities_ComCom.ResultMetaData.TotalPages;
+                if (entities_ComCom.ResultMetaData.TotalPages > 1)
+                {
+                    for (int page = 2; page <= pageCountCommunCommune; page++)
+                    {
+                        entities_ComCom = EudoAPI.QueryByCustoms(300, new int[] { 301, 313, 323 },
+                            new int[] { 313, 323 }, new string[] { "2132", "2180" }, page);
+                        // Boucler sur les lignes de résultat des pages suivantes ici
+                        if (entities_ComCom?.ResultData?.Rows is not null)
+                            communauteRows.AddRange(entities_ComCom.ResultData.Rows);
+                    }
+                }
 
-            // Then get the full "contact" row for this "FileId"
-            EudoAPI_Rootobject? ro_contact = EudoAPI.GetFile(200, contactFileId);
-            // Ensure the next operation
-#pragma warning disable CS8602
-            if (ro_contact == null) return string.Empty;
-            if (ro_contact.ResultData == null) return string.Empty;
-            if (ro_contact.ResultData.Rows == null) return string.Empty;
-            if (ro_contact.ResultData.Rows.Length != 0)
-                if (ro_contact.ResultData.Rows[0].Fields == null) return string.Empty;
-            if (ro_contact.ResultData.Rows[0].Fields.Length < 3) return string.Empty;
-            if (ro_contact.ResultData.Rows[0].Fields[1].DbValue == null) return string.Empty;
-            if (ro_contact.ResultData.Rows[0].Fields[2].DbValue == null) return string.Empty;
-            string contactLName = ro_contact.ResultData.Rows[0].Fields[1].DbValue;
-            string contactFName = ro_contact.ResultData.Rows[0].Fields[2].DbValue;
-#pragma warning restore CS8602
+                foreach (EudoAPI_Row communauteRow in communauteRows)
+                    collectiviteDtos.Add(MapCollectiviteDto(communauteRow, true));
+            }
 
-            // Finally, send a complex custom query on the "contacts" table (inner join "adresses") to retrieve the email
-            EudoAPI_Rootobject? ro_email = EudoAPI.QueryByCustoms(200, new int[] { 408 }, new int[] { 201, 202 }, new string[] { contactLName, contactFName });
-            // Ensure the final operation
-#pragma warning disable CS8602
-            if (ro_email == null) return string.Empty;
-            if (ro_email.ResultData == null) return string.Empty;
-            if (ro_email.ResultData.Rows == null) return string.Empty;
-            if (ro_email.ResultData.Rows.Length == 0) return string.Empty;
-            if (ro_email.ResultData.Rows[0].Fields == null) return string.Empty;
-            if (ro_email.ResultData.Rows[0].Fields.Length == 0) return string.Empty;
-            if (ro_email.ResultData.Rows[0].Fields[0].DbValue == null) return string.Empty;
-            string result = ro_email.ResultData.Rows[0].Fields[0].Value;
+            // ----------------------------------------------------------------------------------
+            // Liste des communes
+            // ----------------------------------------------------------------------------------
+            // Table Entité (300)
+            // Type (313) = "2132" (Public)
+            // Sous-Catégorie (323) = "2191" (Communes)
+            List<EudoAPI_Row> communeRows = new List<EudoAPI_Row>();
+            EudoAPI_Rootobject? entities_Communes = EudoAPI.QueryByCustoms(300, new int[] { 301, 313, 323 },
+                new int[] { 313, 323 }, new string[] { "2132", "2191" });
 
+            if (entities_Communes?.ResultData?.Rows is not null)
+            {
+                communeRows.AddRange(entities_Communes.ResultData.Rows);
+                int pageCountCommune = entities_Communes.ResultMetaData.TotalPages;
+                if (entities_Communes.ResultMetaData.TotalPages > 1)
+                {
+                    for (int page = 2; page <= pageCountCommune; page++)
+                    {
+                        entities_Communes = EudoAPI.QueryByCustoms(300, new int[] { 301, 313, 323 },
+                            new int[] { 313, 323 }, new string[] { "2132", "2191" }, page);
+                        if (entities_Communes?.ResultData?.Rows is not null)
+                            communeRows.AddRange(entities_Communes.ResultData.Rows);
+                    }
+                }
 
-            return result;
-#pragma warning restore CS8602
+                foreach (EudoAPI_Row communeRow in communeRows)
+                    collectiviteDtos.Add(MapCollectiviteDto(communeRow, false));
+            }
+        }
+
+        private CollectiviteTestDto MapCollectiviteDto(EudoAPI_Row row, bool isCommunauteCommune)
+        {
+            CollectiviteTestDto dto = new CollectiviteTestDto();
+            //NICH a verifier que l'id correspond bien a ce champ!!
+            dto.IdEudonet = row.FileId;
+            dto.Libelle = row.Fields is not null ? row.Fields[0].Value : default!;
+            dto.CommunauteCommune = isCommunauteCommune;
+            return dto;
         }
     }
 }
