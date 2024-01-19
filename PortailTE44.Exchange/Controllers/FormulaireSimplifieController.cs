@@ -15,10 +15,10 @@ namespace PortailTE44.Exchange.Controllers
 			_formulaireSimplifieService = formulaireSimplifieService;
 		}
 
-		[HttpPost("responsable")]
-		public async Task<bool> FormulaireSimplifieResponsable([FromBody] FormulaireSimplifieResponsablePayloadDto dto)
+		[HttpPost]
+		public async Task<bool> FormulaireSimplifieResponsable([FromBody] FormulaireSimplifiePayloadDto dto)
 		{
-			return await _formulaireSimplifieService.FormulaireSimplifieResponsable(dto);
+			return await _formulaireSimplifieService.SendMailFormulaireSimplifie(dto);
 		}
 	}
 }
