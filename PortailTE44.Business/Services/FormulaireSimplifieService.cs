@@ -34,7 +34,7 @@ namespace PortailTE44.Business.Services
             if (sousTheme.RefTypeOffre.Id != (int)RefTypeOffreEnum.FORMULAIRE_SIMPLIFIE)
                 throw new Exception("Il ne s'agit pas d'un formulaire simplifié");
 
-            return await SendMailFormulaireSimplifieResponsable(dto, sousTheme) && await SendMailFormulaireSimplifieUtilisateur(dto, sousTheme);
+            return await SendMailFormulaireSimplifieResponsable(dto, sousTheme) && await SendMailFormulaireSimplifieUtilisateur(sousTheme);
         }
 
         private async Task<bool> SendMailFormulaireSimplifieResponsable(FormulaireSimplifiePayloadDto dto, SousTheme sousTheme)
@@ -42,7 +42,7 @@ namespace PortailTE44.Business.Services
             return await _mailService.SendAsync(BuildMailFormulaireSimplifieResponsable(dto, sousTheme), new CancellationToken());
         }
 
-        private async Task<bool> SendMailFormulaireSimplifieUtilisateur(FormulaireSimplifiePayloadDto dto, SousTheme sousTheme)
+        private async Task<bool> SendMailFormulaireSimplifieUtilisateur(SousTheme sousTheme)
         {
             return await _mailService.SendAsync(BuildMailFormulaireSimplifieUtilisateur(sousTheme), new CancellationToken());
         }
