@@ -10,6 +10,7 @@ namespace PortailTE44.Common.Dtos.SousTheme
         public string Couleur { get; set; } = default!;
         public string? Icone { get; set; }
         public bool Accessible { get; set; }
+        public string? LienExterne { get; set; }
         public RefTypeOffreDto RefTypeOffre { get; set; } = default!;
     }
 }
