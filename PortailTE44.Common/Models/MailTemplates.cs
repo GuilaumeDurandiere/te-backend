@@ -4,6 +4,8 @@
 	{
 		public FormulaireSimplifieResponsableTemplate FormulaireSimplifieResponsable { get; set; } = default!;
 		public FormulaireSimplifieUtilisateurTemplate FormulaireSimplifieUtilisateur { get; set; } = default!;
+		public FormulaireAdhesionResponsableOffreTemplate FormulaireAdhesionResponsableOffre { get; set; } = default!;
+		public FormulaireAdhesionResponsableCollectiviteTemplate FormulaireAdhesionResponsableCollectivite { get; set; } = default!;
     }
 
 	public class MailInfosTemplate
@@ -21,5 +23,15 @@
 	{
 
 	}
+
+    public class FormulaireAdhesionResponsableOffreTemplate : MailInfosTemplate
+    {
+
+    }
+
+    public class FormulaireAdhesionResponsableCollectiviteTemplate : MailInfosTemplate
+    {
+
+    }
 }
 
