@@ -68,7 +68,7 @@ namespace PortailTE44.Business.Services
             if (workflow is null)
                 throw new KeyNotFoundException($"Le workflow avec l'id {dto.Id} n'existe pas");
 
-            if (NameAlreadyExists(dto.Libelle))
+            if (NameAlreadyExists(dto.Libelle, dto.Id))
                 throw new ArgumentException("WORKFLOW_NAME_ALREADY_EXISTS");
 
             workflow.Libelle = dto.Libelle;
@@ -106,10 +106,13 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<Workflow, WorkflowResponseDto>(duplicateWorkflow);
         }
 
-        private bool NameAlreadyExists(string name)
+        private bool NameAlreadyExists(string name, int? idToIgnore = null)
         {
-            return _repository.GetAll()
-                              .Any(wf => wf.Libelle == name);
+            IQueryable<Workflow> query = _repository.GetAll();
+            if (idToIgnore != null)
+                query = query.Where(x => x.Id != idToIgnore);
+
+            return query.Any(wf => wf.Libelle == name);
         }
     }
 }
