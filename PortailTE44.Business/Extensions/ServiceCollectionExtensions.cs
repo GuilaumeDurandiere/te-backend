@@ -19,6 +19,7 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<IFormulaireSimplifieService, FormulaireSimplifieService>();
             services.AddScoped<ITestApiEudonetService, TestApiEudonetService>();
             services.AddScoped<EudoAPI, EudoAPI>();
+            services.AddScoped<IFormulaireAdhesionService, FormulaireAdhesionService>();
         }
     }
 }
