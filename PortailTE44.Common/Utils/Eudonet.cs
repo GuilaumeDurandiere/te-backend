@@ -37,6 +37,18 @@ namespace PortailTE44.Common.Utils
         public string Token { get; set; } = string.Empty;
         public EudoAPI_UserInfos UserInfos { get; set; } = new EudoAPI_UserInfos();
         public EudoAPI_EudoFont EudoFont { get; set; } = new EudoAPI_EudoFont();
+        public IEnumerable<EudoAPI_CatalogValue>? CatalogValues { get; set; }
+    }
+
+    public class EudoAPI_CatalogValue
+    {
+        public int ParentId { get; set; }
+        public int Id { get; set; }
+        public string? Label { get; set; } = string.Empty;
+        public string Data { get; set; } = string.Empty;
+        public string DbValue { get; set; } = string.Empty;
+        public string DisplayValue { get; set; } = string.Empty;
+        public string ToolTipText { get; set; } = string.Empty;
     }
 
     public class EudoAPI_ResultInfos
@@ -347,7 +359,28 @@ namespace PortailTE44.Common.Utils
             }
 
             return string.Empty;
+        }
 
+        public static EudoAPI_Root? QueryCatalog(int tableDescId)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(_eudoAPIUrl);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("x-auth", _token);
+
+            HttpResponseMessage response = client.GetAsync("Catalog/" + tableDescId.ToString()).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string result = response.Content.ReadAsStringAsync().Result;
+                EudoAPI_Root? reqResult = JsonConvert.DeserializeObject<EudoAPI_Root>(result);
+                if (reqResult != null)
+                {
+                    return reqResult;
+                }
+            }
+
+            return null;
         }
 
         public static EudoAPI_Rootobject? QueryByCriteria(int tableDescId, int[] fieldsDescId, int whereFieldDescId, string whereFieldValue)

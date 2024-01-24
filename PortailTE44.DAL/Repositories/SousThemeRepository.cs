@@ -26,7 +26,6 @@ namespace PortailTE44.DAL.Repositories
             return await Context.SousThemes
                                 .Where(st => st.ThemeId == id)
                                 .Include(st => st.RefTypeOffre)
-                                .Include(st => st.SousThemeCollectivites)
                                 .ToListAsync();
         }
     }

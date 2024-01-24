@@ -15,7 +15,6 @@
         public int RefTypeOffreId { get; set; }
         public Theme Theme { get; set; } = default!;
         public Workflow? Workflow { get; set; }
-		public IEnumerable<SousThemeCollectivite>? SousThemeCollectivites { get; set; }
 		public RefTypeOffre RefTypeOffre { get; set; } = default!;
     }
 }

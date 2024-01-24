@@ -19,7 +19,7 @@ namespace PortailTE44.Exchange.Profiles
 
         private bool OffreAccessible(SousTheme sousTheme)
         {
-            return sousTheme.AccessibleATous || (sousTheme.SousThemeCollectivites != null && sousTheme.SousThemeCollectivites.Any());
+            return sousTheme.AccessibleATous;
         }
     }
 }

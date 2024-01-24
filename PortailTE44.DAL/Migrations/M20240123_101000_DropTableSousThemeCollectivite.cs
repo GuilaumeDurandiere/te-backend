@@ -2,18 +2,10 @@
 
 namespace PortailTE44.DAL.Migrations
 {
-    [Migration(20240105_105500)]
-    public class M20240105_105500_CreateTableSousThemeCollectivite : Migration
+    [Migration(20240123_101000)]
+    public class M20240123_101000_DropTableSousThemeCollectivite : Migration
     {
         public override void Up()
-        {
-            Create.Table("SousThemeCollectivite")
-                .WithColumn("Id").AsInt32().NotNullable().Identity().PrimaryKey()
-                .WithColumn("SousThemeId").AsInt32().NotNullable().ForeignKey("SousTheme", "Id")
-                .WithColumn("CollectiviteId").AsInt32().NotNullable().ForeignKey("Collectivite", "Id");
-        }
-
-        public override void Down()
         {
             if (Schema.Table("SousThemeCollectivite").Exists())
             {
@@ -21,6 +13,14 @@ namespace PortailTE44.DAL.Migrations
                 Delete.ForeignKey("FK_SousThemeCollectivite_CollectiviteId_Collectivite_Id").OnTable("SousThemeCollectivite");
                 Delete.Table("SousThemeCollectivite");
             }
+        }
+
+        public override void Down()
+        {
+            Create.Table("SousThemeCollectivite")
+                .WithColumn("Id").AsInt32().NotNullable().Identity().PrimaryKey()
+                .WithColumn("SousThemeId").AsInt32().NotNullable().ForeignKey("SousTheme", "Id")
+                .WithColumn("CollectiviteId").AsInt32().NotNullable().ForeignKey("Collectivite", "Id");
         }
     }
 }
