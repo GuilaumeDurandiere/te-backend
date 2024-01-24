@@ -20,6 +20,7 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<ISydenetService, SydenetService>();
             services.AddScoped<EudoAPI, EudoAPI>();
             services.AddScoped<IFormulaireAdhesionService, FormulaireAdhesionService>();
+            services.AddScoped<IServiceCompetenceService, ServiceCompetenceService>();
         }
     }
 }
