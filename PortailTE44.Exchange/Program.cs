@@ -7,6 +7,7 @@ using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
 using PortailTE44.Common.Models;
+using PortailTE44.Exchange.CustomMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
