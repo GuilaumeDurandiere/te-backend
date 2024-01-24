@@ -1,4 +1,4 @@
-﻿namespace PortailTE44.Exchange.CustomMiddleware
+﻿namespace PortailTE44.Common.CustomMiddleware
 {
     public class ErrorResponse
     {

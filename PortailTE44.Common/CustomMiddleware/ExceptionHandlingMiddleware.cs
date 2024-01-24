@@ -1,7 +1,8 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net;
 using System.Text.Json;
 
-namespace PortailTE44.Exchange.CustomMiddleware
+namespace PortailTE44.Common.CustomMiddleware
 {
     public class ExceptionHandlingMiddleware
     {
@@ -33,7 +34,7 @@ namespace PortailTE44.Exchange.CustomMiddleware
             {
                 Success = false
             };
-            if(exception is KeyNotFoundException ||
+            if (exception is KeyNotFoundException ||
                exception is ArgumentException)
             {
                 response.StatusCode = (int)HttpStatusCode.BadRequest;

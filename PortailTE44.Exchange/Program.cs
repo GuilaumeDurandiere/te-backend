@@ -1,13 +1,13 @@
 using app.Context;
-using Microsoft.EntityFrameworkCore;
 using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
 using PortailTE44.Business.Extensions;
+using PortailTE44.Common.CustomMiddleware;
+using PortailTE44.Common.Models;
 using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
-using PortailTE44.Common.Models;
-using PortailTE44.Exchange.CustomMiddleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
