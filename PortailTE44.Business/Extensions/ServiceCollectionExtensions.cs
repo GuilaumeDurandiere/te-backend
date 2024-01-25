@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using PortailTE44.Business.Services;
 using PortailTE44.Business.Services.Interfaces;
 using PortailTE44.Common.Utils;
@@ -20,6 +20,8 @@ namespace PortailTE44.Business.Extensions
             services.AddScoped<ISydenetService, SydenetService>();
             services.AddScoped<EudoAPI, EudoAPI>();
             services.AddScoped<IFormulaireAdhesionService, FormulaireAdhesionService>();
+            services.AddScoped<IPreferenceUtilisateurAffichageAffaireService, PreferenceUtilisateurAffichageAffaireService>();
+            services.AddScoped<IServiceCompetenceService, ServiceCompetenceService>();
         }
     }
 }

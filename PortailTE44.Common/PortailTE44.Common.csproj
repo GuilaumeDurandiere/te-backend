@@ -23,11 +23,13 @@
     <None Remove="Template\" />
     <None Remove="Dtos\FormulaireSimplifie\" />
     <None Remove="Dtos\FormulaireAdhesion\" />
+    <None Remove="Dtos\PreferenceUtilisateurAffichageAffaire\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Template\" />
     <Folder Include="Dtos\FormulaireSimplifie\" />
     <Folder Include="Dtos\FormulaireAdhesion\" />
+    <Folder Include="Dtos\PreferenceUtilisateurAffichageAffaire\" />
   </ItemGroup>
 </Project>
