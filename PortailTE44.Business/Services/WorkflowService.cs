@@ -106,7 +106,7 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<Workflow, WorkflowResponseDto>(duplicateWorkflow);
         }
 
-        private bool NameAlreadyExists(string name, int? idToIgnore = null)
+        public bool NameAlreadyExists(string name, int? idToIgnore = null)
         {
             IQueryable<Workflow> query = _repository.GetAll();
             if (idToIgnore != null)

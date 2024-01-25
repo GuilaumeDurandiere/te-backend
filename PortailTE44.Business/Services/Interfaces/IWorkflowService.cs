@@ -13,5 +13,6 @@ namespace PortailTE44.Business.Services.Interfaces
         Task Delete(int id);
         PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page);
         Task<WorkflowResponseDto> Duplicate(int id, string libelle);
+        bool NameAlreadyExists(string name, int? idToIgnore = null);
     }
 }

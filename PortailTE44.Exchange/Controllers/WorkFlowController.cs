@@ -66,5 +66,12 @@ namespace PortailTE44.Exchange.Controllers
         {
             await _workflowService.Delete(id);
         }
+
+        [HttpGet("nameExists")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public bool NameExists(string name)
+        {
+            return _workflowService.NameAlreadyExists(name);
+        }
     }
 }
