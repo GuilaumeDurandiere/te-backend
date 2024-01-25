@@ -1,12 +1,13 @@
 using app.Context;
-using Microsoft.EntityFrameworkCore;
 using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
 using PortailTE44.Business.Extensions;
+using PortailTE44.Common.CustomMiddleware;
+using PortailTE44.Common.Models;
 using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
 using Serilog.Events;
-using PortailTE44.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
