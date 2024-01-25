@@ -25,6 +25,17 @@ configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: t
     .AddJsonFile($"appsettings.user.{Environment.UserName}.json", true, true)
     .AddEnvironmentVariables();
 
+string origin = configuration.GetSection("OriginConfiguration").GetSection("Origins").Value!;
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowCORS", builder =>
+    {
+        builder.WithOrigins(origin)
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.ConfigureDatabase(configuration);
 builder.Services.ConfigureFluentMigrator(configuration);
 builder.Services.AddControllers();
@@ -43,6 +54,8 @@ builder.Services.Configure<MailTemplates>(builder.Configuration.GetSection(nameo
 
 var app = builder.Build();
 
+app.UseCors("AllowCORS");
+
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -54,12 +67,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors(builder => builder
-.AllowAnyHeader()
-.AllowAnyMethod()
-.SetIsOriginAllowed((host) => true)
-.AllowCredentials());
 
 //Migration
 using var scope = app.Services.CreateScope();
