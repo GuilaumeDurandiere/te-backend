@@ -7,13 +7,13 @@ using PortailTE44.Common.Models;
 using PortailTE44.DAL.Configurations;
 using PortailTE44.DAL.Extensions;
 using Serilog;
-using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var logger = new LoggerConfiguration()
+            .MinimumLevel.Warning()
             .WriteTo.Console()
-            .WriteTo.File("../Logs/log.txt", restrictedToMinimumLevel: LogEventLevel.Warning, rollingInterval: RollingInterval.Day)
+            .WriteTo.File("../Logs/log.txt", rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
 builder.Logging.AddSerilog(logger);
