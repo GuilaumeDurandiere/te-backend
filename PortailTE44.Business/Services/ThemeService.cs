@@ -60,9 +60,28 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Theme>, IEnumerable<ThemeLightResponseDto>>(themes);
         }
 
-        public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder)
         {
             IQueryable<Theme> themes = _repository.GetAll();
+            if (sortColumn is not null)
+            {
+                var ascending = sortOrder.ToUpper() == "ASC";
+                switch (sortColumn)
+                {
+                    case "nom":
+                        if (ascending)
+                            themes = themes.OrderBy(t => t.Libelle);
+                        else
+                            themes = themes.OrderByDescending(t => t.Libelle);
+                        break;
+                    case "description":
+                        if (ascending)
+                            themes = themes.OrderBy(t => t.Description);
+                        else
+                            themes = themes.OrderByDescending(t => t.Description);
+                        break;
+                }
+            }
             IQueryable<Theme> results = themes.Skip((page - 1) * size).Take(size);
             return new PaginatedList<ThemeResponseDto>
             {

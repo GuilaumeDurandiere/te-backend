@@ -11,9 +11,9 @@ namespace PortailTE44.Exchange.Profiles
             CreateMap<WorkflowCreatePayloadDto, Workflow>();
             CreateMap<Workflow, WorkflowResponseDto>();
             CreateMap<Workflow, WorkflowItemResponseDto>();
-            CreateMap<Workflow, WorkflowPaginatedResponseDto>();
             CreateMap<Workflow, WorkflowDuplicatePayloadDto>();
             CreateMap<WorkflowDuplicatePayloadDto, Workflow>();
+            CreateMap<Workflow, WorkflowPaginatedResponseDto>().ForMember(dest => dest.Offres, opt => opt.MapFrom(src => src.SousThemes.Select(st => st.Libelle)));
         }
     }
 }

@@ -49,9 +49,30 @@ namespace PortailTE44.Business.Services
             return _mapper.Map<IEnumerable<Workflow>, IEnumerable<WorkflowItemResponseDto>>(workflows);
         }
 
-        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder)
         {
-            IQueryable<Workflow> workflows = _repository.GetAll();
+            IQueryable<Workflow> workflows = _repository.GetAll()
+                                                        .Include(wf => wf.SousThemes);
+            if (sortColumn is not null)
+            {
+                var ascending = sortOrder.ToUpper() == "ASC";
+                switch (sortColumn)
+                {
+                    case "nom":
+                        if (ascending)
+                            workflows = workflows.OrderBy(wf => wf.Libelle);
+                        else
+                            workflows = workflows.OrderByDescending(wf => wf.Libelle);
+                        break;
+                    case "etat":
+                        if (ascending)
+                            workflows = workflows.OrderBy(wf => wf.Actif);
+                        else
+                            workflows = workflows.OrderByDescending(wf => wf.Actif);
+                        break;
+                }
+            }
+
             IQueryable<Workflow> results = workflows.Skip((page - 1) * size).Take(size);
             return new PaginatedList<WorkflowPaginatedResponseDto>
             {

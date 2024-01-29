@@ -25,9 +25,9 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet("paginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder)
         {
-            return _themeService.GetAllPaginated(size, page);
+            return _themeService.GetAllPaginated(size, page, sortColumn, sortOrder);
         }
 
         [HttpGet("{id}")]

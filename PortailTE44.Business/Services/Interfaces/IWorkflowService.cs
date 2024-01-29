@@ -11,7 +11,7 @@ namespace PortailTE44.Business.Services.Interfaces
         Task<IEnumerable<WorkflowItemResponseDto>> GetAllActive();
         Task<WorkflowResponseDto> Update(WorkflowUpdatePayloadDto dto);
         Task Delete(int id);
-        PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page);
+        PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder);
         Task<WorkflowResponseDto> Duplicate(int id, string libelle);
         bool NameAlreadyExists(string name, int? idToIgnore = null);
     }

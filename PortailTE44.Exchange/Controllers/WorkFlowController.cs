@@ -35,9 +35,9 @@ namespace PortailTE44.Exchange.Controllers
 
         [HttpGet("paginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page)
+        public PaginatedList<WorkflowPaginatedResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder)
         {
-            return _workflowService.GetAllPaginated(size, page);
+            return _workflowService.GetAllPaginated(size, page, sortColumn, sortOrder);
         }
 
         [HttpPost()]

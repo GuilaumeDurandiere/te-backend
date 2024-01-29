@@ -18,6 +18,9 @@ namespace PortailTE44.DAL.Configurations
             entity.HasOne(st => st.RefTypeOffre)
                   .WithMany(rto => rto.SousThemes)
                   .HasForeignKey(st => st.RefTypeOffreId);
+            entity.HasOne(st => st.Workflow)
+                  .WithMany(t => t.SousThemes)
+                  .HasForeignKey(st => st.WorkflowId);
         }
     }
 }

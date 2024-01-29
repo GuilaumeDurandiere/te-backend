@@ -11,7 +11,7 @@ namespace PortailTE44.Business.Services.Interfaces
 		Task<ThemeResponseDto> GetById(int id);
 		Task Delete(int id);
 		Task<IEnumerable<ThemeLightResponseDto>> GetAll();
-		PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page);
+		PaginatedList<ThemeResponseDto> GetAllPaginated(int size, int page, string sortColumn, string sortOrder);
 
     }
 }
