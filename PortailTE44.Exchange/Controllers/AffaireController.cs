@@ -21,6 +21,26 @@ namespace PortailTE44.Exchange.Controllers
 		{
 			return _affaireService.Create(dto);
 		}
+
+		[HttpGet("{id}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public Task<AffaireResponseDto> Get(int id)
+		{
+			return _affaireService.GetById(id);
+		}
+
+		[HttpPut]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public Task<AffaireResponseDto> Update([FromBody] AffaireUpdatePayloadDto dto)
+		{
+			return _affaireService.Update(dto);
+		}
+
+		[HttpDelete("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		public async Task Delete(int id)
+		{
+			await _affaireService.Delete(id);		}
 	}
 }
 

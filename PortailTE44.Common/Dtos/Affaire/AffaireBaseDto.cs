@@ -11,7 +11,6 @@
         public string NumeroVoie { get; set; } = default!;
         public string? Site { get; set; }
         public string Description { get; set; } = default!;
-        public int SousThemeId { get; set; }
     }
 }
 

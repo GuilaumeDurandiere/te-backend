@@ -2,7 +2,7 @@
 {
 	public class AffaireCreatePayloadDto : AffaireBaseDto
 	{
-		
-	}
+        public int SousThemeId { get; set; }
+    }
 }
 

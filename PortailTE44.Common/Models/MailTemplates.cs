@@ -6,6 +6,8 @@
 		public FormulaireSimplifieUtilisateurTemplate FormulaireSimplifieUtilisateur { get; set; } = default!;
 		public FormulaireAdhesionResponsableOffreTemplate FormulaireAdhesionResponsableOffre { get; set; } = default!;
 		public FormulaireAdhesionResponsableCollectiviteTemplate FormulaireAdhesionResponsableCollectivite { get; set; } = default!;
+		public FormulaireDemandeAffaireResponsableTemplate FormulaireDemandeAffaireResponsable { get; set; } = default!;
+		public FormulaireDemandeAffaireUtilisateurTemplate FormulaireDemandeAffaireUtilisateur { get; set; } = default!;
     }
 
 	public class MailInfosTemplate
@@ -33,5 +35,15 @@
     {
 
     }
+
+	public class FormulaireDemandeAffaireResponsableTemplate : MailInfosTemplate
+	{
+
+	}
+
+	public class FormulaireDemandeAffaireUtilisateurTemplate : MailInfosTemplate
+	{
+
+	}
 }
 

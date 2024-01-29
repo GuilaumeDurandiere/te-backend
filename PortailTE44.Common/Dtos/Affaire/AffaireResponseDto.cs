@@ -3,6 +3,7 @@
 	public class AffaireResponseDto : AffaireBaseDto
 	{
 		public int Id { get; set; }
-	}
+        public int SousThemeId { get; set; }
+    }
 }
 
